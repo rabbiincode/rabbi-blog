@@ -1,0 +1,43 @@
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 40vh;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  font-size: 1.3rem;
+  line-height: 1.62rem;
+  letter-spacing: -0.09px;
+  z-index: 100;
+  padding: 1.5rem 1.5rem 0;
+
+  .list{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .list-item{
+    width: fit-content;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .list-item:hover{
+    opacity: 0.7;
+  }
+
+  .footer{
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    line-height: 0.8rem;
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+}

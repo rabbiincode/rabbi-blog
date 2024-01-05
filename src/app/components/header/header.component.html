@@ -1,0 +1,14 @@
+<nav [ngClass]="open ? 'bg-change' : ''" class="navbar">
+  <img src="/assets/images/logo.png" alt="logo" class="logo"/>
+  <blog-toggle-dark-mode-button class="sidebar"></blog-toggle-dark-mode-button>
+  <ul class="list">
+    <li class="list-item">Home</li>
+    <li class="list-item">Editor</li>
+    <li class="list-item">Login</li>
+    <blog-toggle-dark-mode-button></blog-toggle-dark-mode-button>
+  </ul>
+  <mat-icon *ngIf="!open" (click)="toggleSidebar()" class="icon menu">menu</mat-icon>
+  <mat-icon *ngIf="open" (click)="toggleSidebar()" class="icon close">close</mat-icon>
+</nav>
+
+<blog-sidebar *ngIf="open" class="sidebar"></blog-sidebar>

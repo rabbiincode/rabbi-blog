@@ -1,0 +1,17 @@
+body{
+  --bg: #f6f8fa;
+  --bg1: #cbd5e1;
+  --sidebar-bg: #e7e6e6;
+  --text: #000;
+  --text1: #FFF;
+  --text-hover: rgb(30, 30, 30);
+}
+
+body.dark-theme{
+  --bg: #0E1011;
+  --bg1: #000;
+  --sidebar-bg: rgb(26, 27, 27);
+  --text: #FFF;
+  --text1: #000;
+  --text-hover: rgb(225, 225, 225);
+}
