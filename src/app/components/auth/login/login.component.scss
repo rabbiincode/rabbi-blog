@@ -1,0 +1,131 @@
+.login{
+  position: relative;
+  height: 100vh;
+  padding: 1.5rem;
+}
+
+.logo{
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.login > span{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-style: oblique;
+  text-decoration: line-through;
+}
+
+.content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px;
+}
+
+.content > form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content > form > label{
+  font-size: 1.2rem;
+  opacity: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.label{
+  margin-top: 2rem;
+}
+
+.input{
+  width: 100%;
+  padding: 1rem;
+  border: 0.1px solid var(--button-border);
+  border-radius: 0.8rem;
+}
+
+.password{
+  position: relative;
+}
+
+.confirm{
+  margin-top: 2.5rem;
+}
+
+.button{
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  margin-right: 0.5rem;
+}
+
+.input::placeholder{
+  color: #8B8B8B;
+  font-size: 1.125rem;
+  line-height: 1.62rem;
+  letter-spacing: -0.09px;
+}
+
+.recover{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.recover > span{
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.content > form > button{
+  background: var(--bg2);
+  color: var(--text1);
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.8;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.content > form > button:hover{
+  opacity: 0.7;
+}
+
+.goggle{
+   background: var(--bg2);
+   width: 100%;
+   color: var(--text1);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0.5rem;
+   font-size: 1.2rem;
+   font-weight: 500;
+   border-radius: 0.5rem;
+   padding: 0.8rem;
+   margin: 2.5rem 0 1rem;
+}
+
+.register{
+  width: fit-content;
+  margin: auto;
+  cursor: pointer;
+}

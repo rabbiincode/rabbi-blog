@@ -1,9 +1,12 @@
-<div class="sidebar">
-  <span>success</span>
-  <ul class="list">
-    <li class="list-item">Home</li>
-    <li class="list-item">Editor</li>
-    <li class="list-item">Login</li>
-  </ul>
-  <span class="footer">rabbi</span>
+<div class="sidebar animate__animated animate__fadeInDown">
+  <div class="content">
+    <span>success</span>
+    <ul class="list">
+      <li [routerLink]="['/']" class="list-item">Home</li>
+      <li [routerLink]="['/user']" class="list-item">Publish</li>
+      <li (click)="search()" class="list-item">Search</li>
+      <li [routerLink]="['/login']" class="list-item">Login</li>
+    </ul>
+    <span class="footer">rabbi</span>
+  </div>
 </div>

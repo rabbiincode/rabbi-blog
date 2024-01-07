@@ -1,0 +1,26 @@
+<div class="login">
+  <img src="/assets/images/logo.png" alt="logo" [routerLink]="['/']" class="logo"/>
+  <div class="content">
+    <form [formGroup]="registerForm">
+      <label>Email</label>
+      <input formControlName="emailAddressOrUserName" matInput required placeholder='you@mail.com' class="input"/>
+      <label class="label">Password</label>
+      <div class="password">
+        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required placeholder='Password' class="input"/>
+        <button mat-icon-button matSuffix (click)="hide = !hide" class="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </div>
+      <div class="password confirm">
+        <input formControlName="confirmPassword" matInput [type]="hide ? 'password' : 'text'" required placeholder='Confirm Password' class="input"/>
+        <button mat-icon-button matSuffix (click)="hide = !hide" class="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </div>
+      <button type='submit' [disabled]="registerForm.invalid">Register</button>
+    </form>
+    <button class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with Google</button>
+    <p [routerLink]="['/login']" class="register">Already have an account? Login</p>
+  </div>
+  <span>Rabbi</span>
+</div>

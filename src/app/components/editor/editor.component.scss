@@ -1,0 +1,97 @@
+.banner-upload{
+  position: relative;
+  background: var(--bg1);
+  width: 100%;
+  height: 50vh;
+}
+
+.banner-upload-button{
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  background: #e7e6e6;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.7rem;
+}
+
+.banner-upload-button > img{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.url{
+  width: 100%;
+  height: 100%;
+}
+
+.back{
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  border: 0.1px solid var(--button-border);
+  border-radius: 0 0 0.5rem 0;
+  padding: 0.3rem 0.8rem 0.3rem 0.2rem;
+}
+
+.content{
+  width: 70vw;
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 3rem 1.5rem;
+}
+
+.text{
+  min-height: 5rem;
+  height: auto;
+  outline: none;
+  font-size: 3rem;
+  font-weight: 600;
+  resize: none;
+  border: 0.1px dotted var(--button-border);
+  border-radius: 0.5rem;
+  padding: 0.625rem;
+}
+
+.article{
+  height: 30rem;
+  font-size: 1.25rem;
+  margin-top: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  white-space: pre-wrap;
+}
+
+textarea::-webkit-scrollbar{
+  width: 0.4rem;
+}
+
+textarea::-webkit-scrollbar-thumb{
+  border-radius: 0;
+}
+
+.read{
+  padding: 2.5rem 1.5rem 0;
+}
+
+.publish{
+  text-align: right;
+  padding: 1.5rem;
+}
+
+.publish > label{
+  color: var(--upload);
+  cursor: pointer;
+}
+
+.publish > button{
+  background: #ffa500;
+  width: fit-content;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-left: 1rem;
+}

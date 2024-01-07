@@ -1,4 +1,5 @@
 @import './typography/color';
+@import 'animate.css';
 
 *{
   box-sizing: border-box;
@@ -23,12 +24,18 @@ html, body{
   color: var(--text);
   min-height: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
   font-size: clamp(9px, 15px, 19px);
 }
 
-button, button:focus, input, input:focus{
+button, button:focus, input, input:focus, textarea, textarea:focus{
+  background: var(--bg);
+  color: var(--text);
+  border: none;
   outline: none;
+}
+
+button{
+  cursor: pointer;
 }
 
 button:hover{
@@ -107,5 +114,3 @@ button:disabled, input:disabled{
     font-size: clamp(0.85px, 1.75px, 3.7px);
   }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

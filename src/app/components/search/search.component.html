@@ -1,0 +1,14 @@
+<div class="search">
+  <blog-header></blog-header>
+  <div *ngIf="!result" class="not-found">
+    <span>No result found</span>
+    <button [routerLink]="'/'"><mat-icon class="circle-icon">navigate_before</mat-icon>back</button>
+  </div>
+
+  <div *ngIf="result" class="result">
+    <p class="input">Search: <span>{{searchValue}}</span></p>
+    <blog-blog-card [blogContent]="blogContent"></blog-blog-card>
+    <blog-footer></blog-footer>
+    <blog-scroll-to-top></blog-scroll-to-top>
+  </div>
+</div>

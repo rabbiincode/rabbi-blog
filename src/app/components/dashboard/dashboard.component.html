@@ -1,0 +1,16 @@
+<div class="blog">
+  <blog-header></blog-header>
+  <img src="/assets/images/blog/blog4.png" alt="img" class="image">
+  <button (click)="writePost()" class="publish">Publish now</button>
+  <div class="content">
+    <h1 class="title">Welcome back, <span>{{userName}}</span></h1>
+    <p class="quotes">“Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives”</p>
+  </div>
+
+  <div class="read">
+    <h1 class="more">Published Work(s)</h1>
+    <blog-blog-card [blogContent]="blogContent"></blog-blog-card>
+  </div>
+  <blog-footer></blog-footer>
+  <blog-scroll-to-top></blog-scroll-to-top>
+</div>

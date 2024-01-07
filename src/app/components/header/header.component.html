@@ -1,14 +1,18 @@
 <nav [ngClass]="open ? 'bg-change' : ''" class="navbar">
-  <img src="/assets/images/logo.png" alt="logo" class="logo"/>
+  <img src="/assets/images/logo.png" alt="logo" [routerLink]="['/']" class="logo"/>
+  <form *ngIf="search" #searchForm="ngForm" (ngSubmit)="searchBlog()" class="input">
+    <input placeholder="Search" type="text" name="search" [(ngModel)]="searchValue"/>
+  </form>
   <blog-toggle-dark-mode-button class="sidebar"></blog-toggle-dark-mode-button>
   <ul class="list">
-    <li class="list-item">Home</li>
-    <li class="list-item">Editor</li>
-    <li class="list-item">Login</li>
+    <li [routerLink]="['/']" class="list-item">Home</li>
+    <li [routerLink]="['/user']" class="list-item">Publish</li>
+    <mat-icon (click)="searchInput()" class="search">search</mat-icon>
+    <li [routerLink]="['/login']" class="list-item login">Login</li>
     <blog-toggle-dark-mode-button></blog-toggle-dark-mode-button>
   </ul>
   <mat-icon *ngIf="!open" (click)="toggleSidebar()" class="icon menu">menu</mat-icon>
   <mat-icon *ngIf="open" (click)="toggleSidebar()" class="icon close">close</mat-icon>
 </nav>
 
-<blog-sidebar *ngIf="open" class="sidebar"></blog-sidebar>
+<blog-sidebar *ngIf="open" (searchInput)="searchInput()" class="sidebar"></blog-sidebar>

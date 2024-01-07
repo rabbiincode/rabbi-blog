@@ -1,0 +1,12 @@
+<div class="cards">
+  <div *ngFor="let blog of blogs" class="card">
+    <img src={{blog.image}} class="image" alt="img">
+    <h1 class="title">{{blog.title}}</h1>
+    <p class="overview">{{blog.overview}}</p>
+    <div class="button">
+      <button (click)="readPost()">Read</button>
+      <button (click)="editPost()" class="edit">Edit</button>
+      <button (click)="deletePost()" class="delete">Delete</button>
+    </div>
+  </div>
+</div>

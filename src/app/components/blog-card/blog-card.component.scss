@@ -1,0 +1,59 @@
+.cards{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 5rem 1.5rem;
+}
+
+.card{
+  max-width: 400px;
+  min-height: 30rem;
+  margin: auto;
+  font-size: 1.2rem;
+}
+
+.image{
+  width: 100%;
+  min-height: 15rem;
+  max-height: 15rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.title{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+
+.overview{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+
+.button{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.button > button{
+  display: flex;
+  font-weight: 700;
+  border: 0.1px solid var(--button-border);
+  border-radius: 0.8rem;
+  padding: 0.5rem 1rem;
+}
+
+.edit{
+  background: #fef9c3;
+}
+
+.delete{
+  background: #fee2e2;
+}
