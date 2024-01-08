@@ -1,9 +1,11 @@
-import { Component, HostListener, Inject, Renderer2 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { BlogContent } from '../interfaces/content';
+import { Component, Inject, Renderer2 } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
+import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'blog-home',
@@ -15,8 +17,14 @@ import { DOCUMENT } from '@angular/common';
 
 export class HomeComponent{
   isShow!: boolean
-  blogContent = []
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2){}
+  blogContent!: BlogContent[]
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private operation: OperationsService){}
+
+  ngOnInit() {
+    this.operation.getAll().subscribe((data: BlogContent[]) => {
+      this.blogContent = data
+    })
+  }
 
   scrollToBottom = () => {
     this.renderer.setProperty(this.document.body, 'scrollTop', 500)

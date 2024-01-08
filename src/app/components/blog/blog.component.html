@@ -1,29 +1,25 @@
 <div class="blog">
   <blog-header></blog-header>
-  <!-- <img [src]="content.banner" alt="img" class="image"> -->
-  <img src="/assets/images/blog/blog1.png" alt="img" class="image">
-  <div class="timestamp">
-    <!-- <p class="publish">Published on - <span>{{content.publishedDate}}</span><small> by {{content.author}}</small></p> -->
-    <p class="publish">Published on - <span>5th jan, 2024</span><small> by rabbi</small></p>
-    <!-- <p *ngIf="content.updatedDate" class="publish">updated on - <span>{{content.updatedDate}}</span></p> -->
-    <p class="publish">updated on - <span>5th jan, 2024</span></p>
-  </div>
-  <div class="content">
-    <h1 class="title">{{content.title}}</h1>
-    <p class="overview">{{content.overview}}</p>
-    <h1 class="title">Lorem ipsum dolor sit amet consectetur.</h1>
-    <p class="overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-    <p class="overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-    <p class="overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
-    <p class="overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.</p>
+  <div *ngFor="let content of preview ? previewData : readContent">
+    <div class="image">
+      <img [src]="preview ? previewImageUrl : content.bannerUrl" alt="img" class="url">
+    </div>
+    <div class="timestamp">
+      <p class="publish">Published on - <span>{{content.publishedDate}}</span><small> by {{content.author}}</small></p>
+      <p  class="publish">updated on - <span>{{content.updatedDate}}</span></p>
+    </div>
+    <div class="content">
+      <p class="title">{{content.title}}</p>
+      <p class="overview">{{content.overview}}</p>
+    </div>
   </div>
 
   <div *ngIf="!preview" class="read">
-    <h1 class="more">Read More</h1>
-    <blog-blog-card [blogContent]="content"></blog-blog-card>
+    <p class="more">Read More</p>
+    <blog-blog-card [blogContent]="readMoreContent"></blog-blog-card>
   </div>
-  <div class="buttons">
-    <button (click)="goBack()" class="back"><mat-icon class="circle-icon">navigate_before</mat-icon>Back</button>
+  <div *ngIf="preview" class="buttons">
+    <button (click)="goBack()" class="back"><mat-icon>navigate_before</mat-icon>Back</button>
     <button (click)="writePost ? publishPost() : editPost()" class="publish-post" [ngClass]="!writePost ? 'edit-post' : ''">{{writePost ? 'Publish Post' : 'Edit Post'}}</button>
   </div>
 

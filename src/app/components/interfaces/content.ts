@@ -1,10 +1,11 @@
-export interface Content{
-  id: number,
+export interface BlogContent{
+  author: string,
+  banner?: File | null,
+  bannerUrl: string
   category: string,
-  banner: string,
-  title: string,
   overview: string,
+  postId: string;
   publishedDate: string,
+  title: string,
   updatedDate: string,
-  author: string
 }

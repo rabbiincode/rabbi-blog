@@ -20,7 +20,7 @@ export class HeaderComponent{
   }
   open = false
   search = false
-  searchValue!: any
+  searchValue!: string
   activeRoute!: string
   searchInput = () => this.search = !this.search
   toggleSidebar = () => this.open = !this.open

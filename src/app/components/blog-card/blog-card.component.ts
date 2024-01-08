@@ -1,89 +1,69 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { BlogContent } from '../interfaces/content';
+import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
+import { OperationsService } from '../../services/operations.service';
 
 @Component({
   selector: 'blog-blog-card',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, MatIconModule, RouterModule],
   templateUrl: './blog-card.component.html',
   styleUrl: './blog-card.component.scss'
 })
 
 export class BlogCardComponent{
-  @Input() blogContent!: any
-  constructor(private router: Router){}
-  blogs = [
-    {
-      id: 1,
-      category: '',
-      image: '/assets/images/blog/blog1.png',
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      overview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.',
-      publishDate: '',
-      author: ''
-    },
-    {
-      id: 2,
-      category: '',
-      image: '/assets/images/blog/blog2.png',
-      title: 'Lorem ipsum dolor sit amet consect.',
-      overview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.',
-      publishDate: '',
-      author: ''
-    },
-    {
-      id: 3,
-      category: '',
-      image: '/assets/images/blog/blog3.png',
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      overview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.',
-      publishDate: '',
-      author: ''
-    },
-    {
-      id: 4,
-      category: '',
-      image: '/assets/images/blog/blog4.png',
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      overview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.',
-      publishDate: '',
-      author: ''
-    },
-    {
-      id: 5,
-      category: '',
-      image: '/assets/images/blog/blog5.png',
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      overview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.',
-      publishDate: '',
-      author: ''
-    },
-    {
-      id: 6,
-      category: '',
-      image: '/assets/images/blog/blog3.png',
-      title: 'Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet',
-      overview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.',
-      publishDate: '',
-      author: ''
-    },
-    {
-      id: 7,
-      category: '',
-      image: '/assets/images/blog/blog6.png',
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      overview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt incidunt fugiat quos porro repellat harum. Adipisci tempora corporis rem cum.',
-      publishDate: '',
-      author: ''
-    }
-  ]
+  @Input() blogContent!: BlogContent[]
+  constructor(private operation: OperationsService, private router: Router){}
+  currentPage = 1
+  dataPerPage = 8
+  totalPages = 1
+  indexOfLastItem!: any
+  indexOfFirstItem!: any
+  currentBlogContent: any[] = []
 
-  readPost = () => {
-    this.router.navigate(['/blog'])
+  // Page pagination
+  ngOnChanges() {
+    // This method is called whenever the input properties change
+    this.updatePagination()
   }
-  editPost = () => {
-    this.router.navigate(['/editor'], { queryParams: { value: 'edit-post', id: '1' } })
+
+  updatePagination = () => {
+    if (!Array.isArray(this.blogContent)) return
+    this.indexOfLastItem = this.currentPage * this.dataPerPage
+    this.indexOfFirstItem = this.indexOfLastItem - this.dataPerPage
+    this.totalPages = Math.ceil(this.blogContent.length / this.dataPerPage)
+    this.currentBlogContent = this.blogContent.slice(this.indexOfFirstItem, this.indexOfLastItem)
   }
-  deletePost = () => {}
+
+  renderPagination = () => {
+    const pageNumbers = []
+    for (let i = 1; i <= this.totalPages; i++) pageNumbers.push(i)
+    return pageNumbers
+  }
+
+  handlePageNavigation = (page: any) => {
+    this.currentPage = page
+    this.updatePagination()
+  }
+  navigateBack = () => {
+    this.currentPage = this.currentPage - 1
+    this.updatePagination()
+  }
+  navigateForward = () => {
+    this.currentPage = this.currentPage + 1
+    this.updatePagination()
+  }
+
+  // CRUD functions
+  readPost = (postId: string) => {
+    this.router.navigate(['/blog'], { queryParams: { value: postId } })
+  }
+  editPost = (postId: string) => {
+    this.router.navigate(['/editor'], { queryParams: { value: 'edit-post', id: postId } })
+  }
+  deletePost = (postId: string) => {
+    this.operation.deletePost(postId)
+  }
 }

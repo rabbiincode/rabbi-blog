@@ -1,27 +1,55 @@
-# Blog
+# Project Title
+Rabbi Blog
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
+A Blog Site Web Application that allows users to read, publish contents, search for contents and lots more
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- Read Posts
+- Create Posts
+- Update Posts
+- Search Posts
+- Delete Posts
+- Light and Dark Mode Toggle
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Tech Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**Client:** Angular 17
 
-## Running unit tests
+**Database:** Firebase
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**Authentication:** Firebase
 
-## Running end-to-end tests
+## Live Project Link
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Click Here - https://github.com/rabbiincode/rabbi-blog
+## Run Locally
 
-## Further help
+To run this project locally -
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Clone the project
+
+```bash
+  git clone https://github.com/rabbiincode/rabbi-blog
+```
+
+Go to the project directory
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm start
+```
+
+
+## Contributing
+
+Contributions are always welcomed.

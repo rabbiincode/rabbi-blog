@@ -1,11 +1,15 @@
 .cards{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
   padding: 5rem 1.5rem;
 }
 
+.content{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
 .card{
+  width: 100%;
   max-width: 400px;
   min-height: 30rem;
   margin: auto;
@@ -26,6 +30,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 2;
+  font-size: 2rem;
 }
 
 .overview{
@@ -52,8 +57,34 @@
 
 .edit{
   background: #fef9c3;
+  color: #000;
 }
 
 .delete{
   background: #fee2e2;
+  color: #000;
+}
+
+.paginate{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.paginate > span{
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 0.8rem;
+}
+
+.paginate > span:hover{
+  opacity: 0.8;
+}
+
+.active{
+  background: var(--bg2);
+  color: var(--text1) !important;
 }
