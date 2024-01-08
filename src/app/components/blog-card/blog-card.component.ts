@@ -64,6 +64,11 @@ export class BlogCardComponent{
     this.router.navigate(['/editor'], { queryParams: { value: 'edit-post', id: postId } })
   }
   deletePost = (postId: string) => {
-    this.operation.deletePost(postId)
+    this.operation.deletePost(postId).then(() => {
+      // Operation Successful
+      this.router.navigate(['/'])
+    }, () => {
+      // Operation Failed
+    })
   }
 }

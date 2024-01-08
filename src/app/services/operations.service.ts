@@ -1,9 +1,8 @@
-import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { BlogContent } from '../components/interfaces/content';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { text } from 'express';
 
 @Injectable({
   providedIn: 'root'

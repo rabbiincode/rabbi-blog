@@ -22,7 +22,6 @@ export class EditorComponent{
   constructor(private formBuilder: FormBuilder, private operation: OperationsService, private route: ActivatedRoute){}
   postId!: string
   imageUrl!: string
-  // blogContent = []
   writePost = true
   date = new Date()
   postContent!: BlogContent[]
@@ -52,8 +51,8 @@ export class EditorComponent{
         let edit = editPost?.map((post) => ({image: post.bannerUrl, title: post.title, content: post.overview}))
 
         // Pre-fill textarea and image when editing posts
-        !this.writePost && this.contentForm.patchValue({title: edit[0].title, content: edit[0].content})
-        this.imageUrl = edit[0].image
+        !this.writePost && this.contentForm.patchValue({title: edit[0]?.title, content: edit[0]?.content})
+        this.imageUrl = edit[0]?.image
       }
     })
   }
