@@ -29,7 +29,7 @@ export class SearchComponent{
 
     this.operation.getAll().subscribe((data: BlogContent[]) => {
       const searchContent = data
-      const searchResult = searchContent?.filter((search) => search.title.toLowerCase().includes(this.searchValue.toLowerCase()) || search.overview.toLowerCase().includes(this.searchValue.toLowerCase()))
+      const searchResult = searchContent?.filter((search) => search?.title?.toLowerCase().includes(this.searchValue?.toLowerCase()) || search?.overview?.toLowerCase().includes(this.searchValue?.toLowerCase()))
       searchResult ? this.result = true : false
       this.blogContent = searchResult
     }, () => {
