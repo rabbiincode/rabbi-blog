@@ -20,6 +20,12 @@ export class AppComponent{
   }
 
   private scrollToTop = () => {
-    if (this.renderer)this.renderer.setProperty(this.document.body, 'scrollTop', 0)
+    if (typeof window !== 'undefined'){
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 }

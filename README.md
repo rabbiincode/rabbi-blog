@@ -1,7 +1,7 @@
 # Project Title
 Rabbi Blog
 
-A Blog Site Web Application that allows users to read, publish contents, search for contents and lots more
+A Blog Site Web Application that allows users to read, publish contents, search for contents and lots more...
 
 
 ## Features

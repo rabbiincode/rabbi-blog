@@ -5,7 +5,7 @@
     <label for="banner-upload" class="banner-upload-button">
       <img src="/assets/images/upload.png" alt="upload"/>
     </label>
-    <img *ngIf="!writePost || selectedImage" src="{{imageUrl}}" alt="banner" class="url">
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="banner" class="url">
   </div>
   <button [routerLink]="'/user'" class="back"><mat-icon class="circle-icon">navigate_before</mat-icon>back</button>
 
@@ -16,7 +16,7 @@
   <div class="publish">
     <input type="file" accept="image/*" id="image-upload" hidden (change)="handleTextImage($event)"/>
     <label for="image-upload" class="image-upload-button">Upload image</label>
-    <button [disabled]="!selectedImage || contentForm.invalid" (click)="preview()">Preview</button>
+    <button [disabled]="!imageUrl || contentForm.invalid" (click)="preview()">Preview</button>
   </div>
   <blog-footer></blog-footer>
 </div>

@@ -5,6 +5,7 @@
   background-image: url(/assets/images/blog/blog6.png);
   background-repeat: no-repeat;
   background-size: cover;
+  animation: change 60s infinite ease-in-out;
   // background-blend-mode: screen;
 }
 
@@ -33,36 +34,33 @@
   padding: 4rem 1.5rem 0;
 }
 
+@keyframes change{
+  0% {
+    background-image: url(/assets/images/blog/blog2.png);
+  }
+  20% {
+    background-image: url(/assets/images/blog/blog3.png);
+  }
+  40% {
+    background-image: url(/assets/images/blog/blog4.png);
+  }
+  60% {
+    background-image: url(/assets/images/blog/blog5.png);
+  }
+  80% {
+    background-image: url(/assets/images/blog/blog6.png);
+  }
+}
+
 @media (max-width: 788px){
   .landing-page{
     height: 60vh;
     background-image: url(/assets/images/blog/blog1.png);
-    animation: change 60s infinite ease-in-out;
   }
-
   .welcome{
     width: 100%;
   }
-
   .down{
     display: none;
-  }
-
-  @keyframes change{
-    0% {
-      background-image: url(/assets/images/blog/blog2.png);
-    }
-    20% {
-      background-image: url(/assets/images/blog/blog3.png);
-    }
-    40% {
-      background-image: url(/assets/images/blog/blog4.png);
-    }
-    60% {
-      background-image: url(/assets/images/blog/blog5.png);
-    }
-    80% {
-      background-image: url(/assets/images/blog/blog6.png);
-    }
   }
 }

@@ -87,7 +87,7 @@ export class EditorComponent{
   }
 
   preview = () => {
-    if (!this.selectedImage || this.contentForm.invalid) return
+    if (!this.imageUrl || this.contentForm.invalid) return
     this.previewContent = [{
       category: '', banner: this.selectedImage, bannerUrl: '', title: this.contentForm.value.title, overview: this.contentForm.value.content,
       publishedDate: this.getCurrentDate(), updatedDate: !this.writePost ? this.getCurrentDate() : '', author: 'rabbi', postId: this.postId

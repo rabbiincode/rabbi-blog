@@ -12,17 +12,24 @@ import { MatIconModule } from '@angular/material/icon';
 
 export class ScrollToTopComponent{
   showScrollButton = false
-  private intervalId!: any
+  topPositionToStartShowing = 300
   @ViewChild('appRoot') blogRoot: ElementRef | undefined
 
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2){}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    this.showScrollButton = this.document.body.clientHeight > 300
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop
+    this.showScrollButton = scrollPosition > this.topPositionToStartShowing
   }
 
   scrollToTop = () => {
-    this.renderer.setProperty(this.document.body, 'scrollTop', 0)
+    if (typeof window !== 'undefined'){
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 }

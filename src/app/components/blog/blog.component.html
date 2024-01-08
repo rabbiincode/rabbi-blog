@@ -6,11 +6,11 @@
     </div>
     <div class="timestamp">
       <p class="publish">Published on - <span>{{content.publishedDate}}</span><small> by {{content.author}}</small></p>
-      <p  class="publish">updated on - <span>{{content.updatedDate}}</span></p>
+      <p *ngIf="content.updatedDate" class="publish">updated on - <span>{{content.updatedDate}}</span></p>
     </div>
-    <div class="content">
+    <div class="post">
       <p class="title">{{content.title}}</p>
-      <p class="overview">{{content.overview}}</p>
+      <p>{{content.overview}}</p>
     </div>
   </div>
 

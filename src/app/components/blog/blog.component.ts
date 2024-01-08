@@ -58,7 +58,6 @@ export class BlogComponent{
   goBack = () => this.back.emit(false)
 
   editPost = async () => {
-    console.log(this.previewData[0].postId)
     if (this.previewData[0].banner){
       this.previewData[0].bannerUrl = await this.operation.storeImageUrl(this.previewData[0].banner)
     }

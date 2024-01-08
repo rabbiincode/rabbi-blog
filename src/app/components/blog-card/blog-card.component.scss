@@ -42,7 +42,9 @@
 }
 
 .button{
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
 }
@@ -69,6 +71,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-top: 2rem;
 }
 
 .paginate > span{

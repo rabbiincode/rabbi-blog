@@ -27,6 +27,11 @@ export class HomeComponent{
   }
 
   scrollToBottom = () => {
-    this.renderer.setProperty(this.document.body, 'scrollTop', 500)
+    window.scroll({
+      top: 500,
+      left: 0,
+      behavior: 'smooth'
+    })
+    // this.renderer.setProperty(this.document.body, 'scrollTop', 500)
   }
 }

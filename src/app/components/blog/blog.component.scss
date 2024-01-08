@@ -36,8 +36,9 @@
   font-style: italic;
 }
 
-.content{
+.post{
   padding: 1.5rem;
+  overflow-wrap: break-word;
 }
 
 .title{
@@ -45,10 +46,6 @@
   font-size: 2rem;
   font-weight: 500;
   padding: 2rem 0;
-}
-
-.overview{
-  width: 100%;
 }
 
 .read{
