@@ -1,4 +1,4 @@
-<nav [ngClass]="open ? 'bg-change' : ''" class="navbar">
+<nav [ngClass]="open ? 'bg-change sidebar-open' : ''" class="navbar">
   <img src="/assets/images/logo.png" alt="logo" [routerLink]="['/']" class="logo"/>
   <form *ngIf="search" #searchForm="ngForm" (ngSubmit)="searchBlog()" class="input">
     <input placeholder="Search" type="text" name="search" [(ngModel)]="searchValue"/>

@@ -42,13 +42,14 @@
   max-width: 80%;
   display: flex;
   flex-direction: column;
+  gap: 3rem;
   margin: auto;
   padding: 3rem 1.5rem;
 }
 
 .text{
-  min-height: 5rem;
   height: auto;
+  min-height: 5rem;
   outline: none;
   font-size: 3rem;
   font-weight: 600;
@@ -58,43 +59,45 @@
   padding: 0.625rem;
 }
 
-.article{
-  height: 30rem;
-  font-size: 1.25rem;
-  margin-top: 1.25rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-  white-space: pre-wrap;
-}
-
 textarea::-webkit-scrollbar{
-  width: 0.4rem;
-}
-
-textarea::-webkit-scrollbar-thumb{
-  border-radius: 0;
+  display: none;
 }
 
 .read{
   padding: 2.5rem 1.5rem 0;
 }
 
-.publish{
-  text-align: right;
-  padding: 1.5rem;
-}
-
-.publish > label{
-  color: var(--upload);
-  cursor: pointer;
-}
-
-.publish > button{
+.preview{
   background: #ffa500;
   width: fit-content;
+  display: flex;
+  margin: auto;
   font-size: 1.2rem;
   font-weight: 500;
   border-radius: 0.5rem;
-  padding: 0.5rem;
-  margin-left: 1rem;
+  padding: 0.5rem 2rem;
+}
+
+.angular-editor .angular-editor-textarea{
+  border: 0.0625rem solid var(--button-border) !important;
+  border-radius: 0.5rem !important;
+}
+
+.angular-editor .angular-editor-toolbar{
+  background: var(--bg1) !important;
+  border: 0.0625rem solid var(--button-border) !important;
+  border-radius: 0.5rem !important;
+}
+
+.angular-editor .angular-editor-toolbar button{
+  background: var(--text1) !important;
+  color: var(--text) !important;
+  border: 0.0625rem solid var(--button-border) !important;
+}
+
+@media (max-width: 768px){
+  .preview{
+    width: 100%;
+    display: block;
+  }
 }

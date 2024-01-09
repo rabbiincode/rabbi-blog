@@ -3,7 +3,9 @@
     <div *ngFor="let blog of currentBlogContent" class="card">
       <img src={{blog.bannerUrl}} class="image" alt="img">
       <p class="title">{{blog.title}}</p>
-      <p class="overview">{{blog.overview}}</p>
+      <p class="overview">
+        <blog-html-to-text [htmlContent]="getFirstThreeLines(blog.overview)"></blog-html-to-text>
+      </p>
       <div class="button">
         <button (click)="readPost(blog.postId)">Read</button>
         <button (click)="editPost(blog.postId)" class="edit">Edit</button>

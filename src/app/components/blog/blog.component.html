@@ -10,7 +10,7 @@
     </div>
     <div class="post">
       <p class="title">{{content.title}}</p>
-      <p>{{content.overview}}</p>
+      <blog-html-to-text [htmlContent]="content.overview"></blog-html-to-text>
     </div>
   </div>
 

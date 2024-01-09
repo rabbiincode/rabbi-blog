@@ -52,7 +52,7 @@ export class OperationsService{
     })
   }
 
-  storeImageUrl(image: File): Promise<string> {
+  storeImageUrl = (image: File): Promise<string> => {
     // Creates a unique image path for storage
     const filePath = `images/${image.name}`
     const fileRef = this.storage.ref(filePath)
@@ -67,15 +67,5 @@ export class OperationsService{
         }
       }, (error) => reject(error))
     })
-  }
-
-  htmlEncode = (text: string) => {
-    var doc = new DOMParser().parseFromString(text, 'text/html')
-    return doc.documentElement.textContent
-  }
-
-  htmlDecode(text: string): string {
-    const doc = new DOMParser().parseFromString(text, 'text/html')
-    return doc.documentElement.innerHTML
   }
 }

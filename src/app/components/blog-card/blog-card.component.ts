@@ -4,11 +4,12 @@ import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { OperationsService } from '../../services/operations.service';
+import { HtmlToTextComponent } from '../html-to-text/html-to-text.component';
 
 @Component({
   selector: 'blog-blog-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterModule],
+  imports: [HtmlToTextComponent, CommonModule, MatIconModule, RouterModule],
   templateUrl: './blog-card.component.html',
   styleUrl: './blog-card.component.scss'
 })
@@ -27,6 +28,16 @@ export class BlogCardComponent{
   ngOnChanges() {
     // This method is called whenever the input properties change
     this.updatePagination()
+  }
+
+  getFirstThreeLines(content: string | undefined): string {
+    if (content) {
+      // Split the content into words and take the first 50 words
+      const words = content.split(/\s+/).slice(0, 10);
+      return words.join(' ');
+    } else {
+      return '';
+    }
   }
 
   updatePagination = () => {

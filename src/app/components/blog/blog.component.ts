@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
+import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
-import { BlogContent } from '../interfaces/content';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { HtmlToTextComponent } from '../html-to-text/html-to-text.component';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'blog-blog',
   standalone: true,
-  // changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, BlogCardComponent, FooterComponent, HeaderComponent, MatIconModule, ScrollToTopComponent],
+  imports: [CommonModule, BlogCardComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, MatIconModule, ScrollToTopComponent],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss',
 })
@@ -21,9 +21,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 export class BlogComponent{
   constructor(private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
   previewImageUrl!: string
-  previewData!:BlogContent[]
   @Input() preview = false
   @Input() writePost = true
+  previewData!:BlogContent[]
   readContent!: BlogContent[]
   readMoreContent!: BlogContent[]
   @Input() previewContent!: BlogContent[]
@@ -50,15 +50,18 @@ export class BlogComponent{
       overview: post.overview, postId: post.postId, publishedDate: post.publishedDate, updatedDate: post.updatedDate
     }))
 
-    if(this.preview && this.previewData[0].banner){
+    if (this.preview && this.previewData[0].banner){
       this.previewImageUrl = URL.createObjectURL(this.previewData[0].banner)
+    }
+    if (this.preview && this.previewData[0].bannerUrl){
+      this.previewImageUrl = this.preview && this.previewData[0].bannerUrl
     }
   }
 
   goBack = () => this.back.emit(false)
 
   editPost = async () => {
-    if (this.previewData[0].banner){
+    if (this.previewData[0].banner && !this.previewData[0].bannerUrl){
       this.previewData[0].bannerUrl = await this.operation.storeImageUrl(this.previewData[0].banner)
     }
 
@@ -73,6 +76,7 @@ export class BlogComponent{
 
   publishPost = async () => {
     if (this.previewData[0].banner){
+      // Stores image om firebase storage and returns image url
       this.previewData[0].bannerUrl = await this.operation.storeImageUrl(this.previewData[0].banner)
     }
     this.operation.createPost(this.previewData[0]).then(() => {

@@ -11,13 +11,9 @@
 
   <form [formGroup]="contentForm" class="content">
     <textarea formControlName="title" type="text" placeholder="title..." required class="text"></textarea>
-    <textarea formControlName="content" type="text" placeholder="Start writing..." required class="text article"></textarea>
+    <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
+    <button [disabled]="!imageUrl || contentForm.invalid" (click)="preview()" class="preview">Preview</button>
   </form>
-  <div class="publish">
-    <input type="file" accept="image/*" id="image-upload" hidden (change)="handleTextImage($event)"/>
-    <label for="image-upload" class="image-upload-button">Upload image</label>
-    <button [disabled]="!imageUrl || contentForm.invalid" (click)="preview()">Preview</button>
-  </div>
   <blog-footer></blog-footer>
 </div>
 
