@@ -32,6 +32,6 @@ export class DashboardComponent{
   }
 
   writePost = () => {
-    this.router.navigate(['/editor'], { queryParams: { value: 'write-post' } })
+    this.router.navigate(['/editor'], { queryParams: { write: 'write-post' } })
   }
 }

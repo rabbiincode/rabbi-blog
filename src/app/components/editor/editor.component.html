@@ -7,7 +7,7 @@
     </label>
     <img *ngIf="imageUrl" [src]="imageUrl" alt="banner" class="url">
   </div>
-  <button [routerLink]="'/user'" class="back"><mat-icon class="circle-icon">navigate_before</mat-icon>back</button>
+  <button [routerLink]="'/user'" class="back"><mat-icon class="arrow">navigate_before</mat-icon>back</button>
 
   <form [formGroup]="contentForm" class="content">
     <textarea formControlName="title" type="text" placeholder="title..." required class="text"></textarea>

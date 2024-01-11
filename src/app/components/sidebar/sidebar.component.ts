@@ -11,5 +11,7 @@ import { RouterLink } from '@angular/router';
 
 export class SidebarComponent{
   @Output() searchInput = new EventEmitter<boolean>()
+  @Output() toggleSidebar = new EventEmitter<boolean>()
   search = () => this.searchInput.emit(false)
+  sidebarToggle = () => this.toggleSidebar.emit(false)
 }

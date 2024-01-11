@@ -1,15 +1,18 @@
 <div>
   <blog-header></blog-header>
   <div class="landing-page">
+    <div class="background"></div>
     <div class="welcome">
-      <p>Welcome to your personalized blogging oasis!</p>
+      <h1>Welcome to your personalized blogging oasis!</h1>
       <p>Whether you're eager to delve into the wonders of nature or itching to share your own stories, we've got the perfect space for you</p>
       <p>Unwind, explore, and deepen your understanding of the world around you. Your journey into knowledge begins here...</p>
       <img src="/assets/images/down.png" alt="scroll down" (click)="scrollToBottom()" class="down animate__animated animate__headShake animate__infinite"/>
     </div>
   </div>
-  <p class="latest">Latest Posts</p>
-  <blog-blog-card [blogContent]="blogContent"></blog-blog-card>
+  <ng-container *ngIf="blogContent">
+    <p class="latest">Latest Posts</p>
+    <blog-blog-card [blogContent]="blogContent"></blog-blog-card>
+  </ng-container>
   <blog-footer></blog-footer>
   <blog-scroll-to-top></blog-scroll-to-top>
 </div>

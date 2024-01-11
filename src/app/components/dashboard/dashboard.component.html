@@ -9,8 +9,8 @@
     <p class="quotes">“Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives”</p>
   </div>
 
-  <div class="read">
-    <h1 class="more">Published Work(s)</h1>
+  <div *ngIf="blogContent" class="read">
+    <p class="more">Published Work(s)</p>
     <blog-blog-card [blogContent]="blogContent"></blog-blog-card>
   </div>
   <blog-footer></blog-footer>

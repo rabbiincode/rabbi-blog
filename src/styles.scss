@@ -1,8 +1,11 @@
 @import './typography/color';
+@import './typography/loader';
 @import 'animate.css';
 
 *{
   box-sizing: border-box;
+  font-size: 1rem;
+  font-weight: normal;
   line-height: normal;
   padding: 0;
   margin: 0;
@@ -47,6 +50,15 @@ button:disabled, input:disabled{
   cursor: auto;
 }
 
+.loader{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
 /* width */
 ::-webkit-scrollbar{
   width: 10px;
@@ -73,10 +85,6 @@ button:disabled, input:disabled{
   html, body{
     font-size: clamp(7.5px, 14px, 17.5px);
   }
-
-  .layout{
-    margin-top: 5rem;
-  }
 }
 
 @media (max-width: 640px){
@@ -94,6 +102,10 @@ button:disabled, input:disabled{
 @media (max-width: 225px){
   html, body{
     font-size: clamp(3.5px, 6.5px, 10.5px);
+  }
+  mat-icon.arrow{
+    width: 0.8rem;
+    height: 0.8rem;
   }
 }
 

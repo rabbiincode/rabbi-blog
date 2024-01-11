@@ -9,18 +9,21 @@
       <p *ngIf="content.updatedDate" class="publish">updated on - <span>{{content.updatedDate}}</span></p>
     </div>
     <div class="post">
-      <p class="title">{{content.title}}</p>
+      <h1 class="title">{{content.title}}</h1>
       <blog-html-to-text [htmlContent]="content.overview"></blog-html-to-text>
     </div>
   </div>
 
   <div *ngIf="!preview" class="read">
-    <p class="more">Read More</p>
+    <p *ngIf="readMoreContent" class="more">Read More <mat-icon class="arrow">expand_more</mat-icon></p>
     <blog-blog-card [blogContent]="readMoreContent"></blog-blog-card>
   </div>
   <div *ngIf="preview" class="buttons">
-    <button (click)="goBack()" class="back"><mat-icon>navigate_before</mat-icon>Back</button>
-    <button (click)="writePost ? publishPost() : editPost()" class="publish-post" [ngClass]="!writePost ? 'edit-post' : ''">{{writePost ? 'Publish Post' : 'Edit Post'}}</button>
+    <button (click)="writePost ? publishPost() : editPost()" class="publish-post" [ngClass]="!writePost ? 'edit-post' : ''">
+      <span *ngIf="!loading">{{writePost ? 'Publish Post' : 'Edit Post'}}</span>
+      <span *ngIf="loading" class="load"></span>
+    </button>
+    <button (click)="goBack()" class="back"><mat-icon class="arrow">navigate_before</mat-icon>Back</button>
   </div>
 
   <blog-footer></blog-footer>

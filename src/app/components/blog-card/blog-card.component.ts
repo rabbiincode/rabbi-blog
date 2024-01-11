@@ -30,14 +30,12 @@ export class BlogCardComponent{
     this.updatePagination()
   }
 
-  getFirstThreeLines(content: string | undefined): string {
-    if (content) {
-      // Split the content into words and take the first 50 words
-      const words = content.split(/\s+/).slice(0, 10);
-      return words.join(' ');
-    } else {
-      return '';
-    }
+  getFirstWords = (content: string | undefined): string => {
+    if (content){
+      // Split the content into words and take the first 20 words
+      const words = content.split(/\s+/).slice(0, 20)
+      return words.join(' ') + '...'
+    } else return ''
   }
 
   updatePagination = () => {
@@ -69,10 +67,10 @@ export class BlogCardComponent{
 
   // CRUD functions
   readPost = (postId: string) => {
-    this.router.navigate(['/blog'], { queryParams: { value: postId } })
+    this.router.navigate(['/blog'], { queryParams: { read: postId } })
   }
   editPost = (postId: string) => {
-    this.router.navigate(['/editor'], { queryParams: { value: 'edit-post', id: postId } })
+    this.router.navigate(['/editor'], { queryParams: { write: 'edit-post', post: postId } })
   }
   deletePost = (postId: string) => {
     this.operation.deletePost(postId).then(() => {

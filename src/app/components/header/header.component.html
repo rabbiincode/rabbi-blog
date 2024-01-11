@@ -15,4 +15,4 @@
   <mat-icon *ngIf="open" (click)="toggleSidebar()" class="icon close">close</mat-icon>
 </nav>
 
-<blog-sidebar *ngIf="open" (searchInput)="searchInput()" class="sidebar"></blog-sidebar>
+<blog-sidebar *ngIf="open" (searchInput)="searchInput()" (toggleSidebar)="toggleSidebar()" class="sidebar"></blog-sidebar>

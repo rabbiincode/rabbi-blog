@@ -1,12 +1,15 @@
 .landing-page{
   position: relative;
-  height: 85vh;
+}
+
+.background{
   background-color: var(--bg1);
   background-image: url(/assets/images/blog/blog6.png);
   background-repeat: no-repeat;
   background-size: cover;
+  opacity: 0.7;
   animation: change 60s infinite ease-in-out;
-  // background-blend-mode: screen;
+  padding: 25rem 0;
 }
 
 .welcome{
@@ -14,9 +17,21 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.7rem;
-  font-weight: 500;
+  opacity: 1;
   padding: 1.5rem;
+}
+
+.welcome > h1{
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0 0 1rem;
+}
+
+.welcome > p{
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
 }
 
 .down{
@@ -52,10 +67,9 @@
   }
 }
 
-@media (max-width: 788px){
-  .landing-page{
-    height: 60vh;
-    background-image: url(/assets/images/blog/blog1.png);
+@media (max-width: 1050px){
+  .background{
+    padding: 20rem 0;
   }
   .welcome{
     width: 100%;

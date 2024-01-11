@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
 import { BlogContent } from '../interfaces/content';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, Inject, Renderer2 } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
@@ -10,7 +10,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 @Component({
   selector: 'blog-home',
   standalone: true,
-  imports: [BlogCardComponent, HeaderComponent, FooterComponent, ScrollToTopComponent],
+  imports: [BlogCardComponent, HeaderComponent, FooterComponent, ScrollToTopComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

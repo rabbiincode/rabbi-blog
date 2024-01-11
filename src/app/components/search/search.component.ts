@@ -18,22 +18,26 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink, RouterModul
 })
 
 export class SearchComponent{
-  result!: boolean
+  result = false
+  loading = false
   searchValue!: string
   blogContent!: BlogContent[]
 
   constructor(private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
   ngOnInit() {
+    this.loading = true
     const snapshot: ActivatedRouteSnapshot = this.route.snapshot
-    this.searchValue = snapshot.queryParams['value']
+    this.searchValue = snapshot.queryParams['query']
 
     this.operation.getAll().subscribe((data: BlogContent[]) => {
       const searchContent = data
       const searchResult = searchContent?.filter((search) => search?.title?.toLowerCase().includes(this.searchValue?.toLowerCase()) || search?.overview?.toLowerCase().includes(this.searchValue?.toLowerCase()))
-      searchResult ? this.result = true : false
+      this.loading = false
+      searchResult ? this.result = true : this.result = false
       this.blogContent = searchResult
     }, () => {
       // Operation Failed
+      this.loading = false
       this.router.navigate(['/'])
     })
   }

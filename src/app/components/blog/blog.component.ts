@@ -20,6 +20,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 
 export class BlogComponent{
   constructor(private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
+  loading = false
   previewImageUrl!: string
   @Input() preview = false
   @Input() writePost = true
@@ -31,7 +32,7 @@ export class BlogComponent{
 
   ngOnInit() {
     const snapshot: ActivatedRouteSnapshot = this.route.snapshot
-    let postId = snapshot.queryParams['value']
+    let postId = snapshot.queryParams['read']
 
     this.operation.getAll().subscribe((data: BlogContent[]) => {
       if (data){
@@ -61,29 +62,34 @@ export class BlogComponent{
   goBack = () => this.back.emit(false)
 
   editPost = async () => {
+    this.loading = true
     if (this.previewData[0].banner && !this.previewData[0].bannerUrl){
       this.previewData[0].bannerUrl = await this.operation.storeImageUrl(this.previewData[0].banner)
     }
-
     this.operation.updatePost(this.previewData[0].postId, this.previewData[0]).then(() => {
       // Operation Successful
+      this.loading = false
       this.router.navigate(['/user'])
     }, () => {
       // Operation Failed
+      this.loading = false
       this.back.emit(false)
     })
   }
 
   publishPost = async () => {
+    this.loading = true
     if (this.previewData[0].banner){
       // Stores image om firebase storage and returns image url
       this.previewData[0].bannerUrl = await this.operation.storeImageUrl(this.previewData[0].banner)
     }
     this.operation.createPost(this.previewData[0]).then(() => {
       // Operation Successful
+      this.loading = false
       this.router.navigate(['/user'])
     }, () => {
       // Operation Failed
+      this.loading = false
       this.back.emit(false)
     })
   }

@@ -11,17 +11,26 @@
 .card{
   width: 100%;
   max-width: 400px;
-  min-height: 30rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: auto;
   font-size: 1.2rem;
 }
 
 .image{
+  background: var(--bg1);
   width: 100%;
-  min-height: 15rem;
-  max-height: 15rem;
+  height: 15rem;
   border-radius: 1rem;
   margin-bottom: 2rem;
+}
+
+.banner{
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
 }
 
 .title{
@@ -30,8 +39,8 @@
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 2;
-  height: 5rem;
-  font-size: 2rem;
+  height: 5.5rem;
+  font-size: 1.5rem;
 }
 
 .overview{
@@ -78,7 +87,6 @@
 
 .paginate > span{
   color: var(--text);
-  font-size: 1.1rem;
   font-weight: 500;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -92,4 +100,8 @@
 .active{
   background: var(--bg2);
   color: var(--text1) !important;
+}
+
+.icon{
+  cursor: pointer;
 }

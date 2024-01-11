@@ -23,13 +23,25 @@ export class HeaderComponent{
   searchValue!: string
   activeRoute!: string
   searchInput = () => this.search = !this.search
-  toggleSidebar = () => this.open = !this.open
+  toggleSidebar = () => {
+    this.open = !this.open
+    if (typeof window !== 'undefined'){
+      // Remove and add scrollbar on sidebar toggle
+      const tagName = document.getElementsByTagName('html')[0]
+      if (tagName && this.open){
+        tagName.style.overflow = 'hidden'
+      } else{
+        tagName.style.overflow = 'auto'
+      }
+    }
+  }
+
   searchBlog = () => {
     if (!this.searchValue) return
     const currentRouteSegment = this.route.snapshot.url[0]?.path
     if (currentRouteSegment && currentRouteSegment.startsWith('search')){
       this.router.navigate(['/'])
     }
-    this.router.navigate(['search'], { queryParams: { value: this.searchValue } })
+    this.router.navigate(['search'], { queryParams: { query: this.searchValue } })
   }
 }
