@@ -15,7 +15,7 @@
   </div>
 
   <div *ngIf="!preview" class="read">
-    <p *ngIf="readMoreContent" class="more">Read More <mat-icon class="arrow">expand_more</mat-icon></p>
+    <p *ngIf="readMoreContent?.length !== 0" class="more">Read More <mat-icon class="arrow">expand_more</mat-icon></p>
     <blog-blog-card [blogContent]="readMoreContent"></blog-blog-card>
   </div>
   <div *ngIf="preview" class="buttons">

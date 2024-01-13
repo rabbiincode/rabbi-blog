@@ -52,7 +52,7 @@ export class EditorComponent{
         const editContent = data
         const editPost = editContent?.filter((post) => post.postId == this.postId)
         let edit = editPost?.map((post) => ({image: post.bannerUrl, title: post.title, content: post.overview, publishedDate: post.publishedDate}))
-        this.publishedDate = edit[0].publishedDate
+        this.publishedDate = edit[0]?.publishedDate
 
         // Pre-fill textarea and image when editing posts
         !this.writePost && this.contentForm.patchValue({title: edit[0]?.title, content: edit[0]?.content})

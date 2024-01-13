@@ -5,7 +5,7 @@
       <li [routerLink]="['/']" class="list-item">Home</li>
       <li [routerLink]="['/user']" class="list-item">Publish</li>
       <li (click)="search()" class="list-item">Search</li>
-      <li [routerLink]="['/login']" class="list-item">Login</li>
+      <li (click)="auth()" class="list-item">{{login ? 'LogOut' : 'Login'}}</li>
     </ul>
     <span class="footer">rabbi</span>
   </div>

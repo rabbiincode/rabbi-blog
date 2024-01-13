@@ -1,13 +1,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyBVVoJfL3vv7MO8T4bsrtv8oXuw0jTJJBw",
-    authDomain: "rabbi-blog-5966a.firebaseapp.com",
-    databaseURL: "https://rabbi-blog-5966a-default-rtdb.firebaseio.com",
-    projectId: "rabbi-blog-5966a",
-    storageBucket: "rabbi-blog-5966a.appspot.com",
-    messagingSenderId: "875393330039",
-    appId: "1:875393330039:web:89a2601ff5858e62fc8f72",
-    measurementId: "G-XZRRJTBWC9"
+    apiKey: "AIzaSyDpeW13Ig0DWevxxzC9wn6XIg1RSBaiqt4",
+    authDomain: "rabbi-blog-d0b4b.firebaseapp.com",
+    projectId: "rabbi-blog-d0b4b",
+    storageBucket: "rabbi-blog-d0b4b.appspot.com",
+    messagingSenderId: "395081249758",
+    appId: "1:395081249758:web:822eea027e824e0fcc634f",
+    measurementId: "G-QVYCW99RDJ"
   }
 }

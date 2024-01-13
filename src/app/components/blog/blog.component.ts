@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
@@ -8,18 +9,17 @@ import { OperationsService } from '../../services/operations.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HtmlToTextComponent } from '../html-to-text/html-to-text.component';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 @Component({
   selector: 'blog-blog',
   standalone: true,
   imports: [CommonModule, BlogCardComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, MatIconModule, ScrollToTopComponent],
   templateUrl: './blog.component.html',
-  styleUrl: './blog.component.scss',
+  styleUrl: './blog.component.scss'
 })
 
 export class BlogComponent{
-  constructor(private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
+  constructor(private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
   loading = false
   previewImageUrl!: string
   @Input() preview = false
@@ -29,21 +29,12 @@ export class BlogComponent{
   readMoreContent!: BlogContent[]
   @Input() previewContent!: BlogContent[]
   @Output() back = new EventEmitter<boolean>()
+  @Output() reRender = new EventEmitter<boolean>()
 
   ngOnInit() {
-    const snapshot: ActivatedRouteSnapshot = this.route.snapshot
-    let postId = snapshot.queryParams['read']
-
-    this.operation.getAll().subscribe((data: BlogContent[]) => {
-      if (data){
-        const moreContent = data
-        const readPost = moreContent?.filter((post) => post.postId == postId)
-        this.readContent = readPost
-
-        // Filter out the current blog from read more
-        const readMore = moreContent?.filter((post) => post.postId !== postId)
-        this.readMoreContent = readMore
-      }
+    // Subscribe to route change event and rerender component on route change
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.getAllPost(params['read'])
     })
 
     this.previewData = this.previewContent?.map((post) => ({
@@ -57,6 +48,20 @@ export class BlogComponent{
     if (this.preview && this.previewData[0].bannerUrl){
       this.previewImageUrl = this.preview && this.previewData[0].bannerUrl
     }
+  }
+
+  getAllPost = (postId: string) => {
+    this.operation.getAll().subscribe((data: BlogContent[]) => {
+      if (data){
+        const moreContent = data
+        const readPost = moreContent?.filter((post) => post.postId == postId)
+        this.readContent = readPost
+
+        // Filter out the current blog from read more
+        const readMore = moreContent?.filter((post) => post.postId !== postId)
+        this.readMoreContent = readMore
+      }
+    })
   }
 
   goBack = () => this.back.emit(false)

@@ -7,7 +7,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'blog-search',
@@ -23,17 +23,22 @@ export class SearchComponent{
   searchValue!: string
   blogContent!: BlogContent[]
 
-  constructor(private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
+  constructor(private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
   ngOnInit() {
     this.loading = true
-    const snapshot: ActivatedRouteSnapshot = this.route.snapshot
-    this.searchValue = snapshot.queryParams['query']
+    // Subscribe to route change event and rerender component on route change
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.searchValue = params['query']
+      this.getSearchResult(params['query'])
+    })
+  }
 
+  getSearchResult = (value: string) => {
     this.operation.getAll().subscribe((data: BlogContent[]) => {
       const searchContent = data
-      const searchResult = searchContent?.filter((search) => search?.title?.toLowerCase().includes(this.searchValue?.toLowerCase()) || search?.overview?.toLowerCase().includes(this.searchValue?.toLowerCase()))
+      const searchResult = searchContent?.filter((search) => search?.title?.toLowerCase().includes(value?.toLowerCase()) || search?.overview?.toLowerCase().includes(value?.toLowerCase()))
+      searchResult?.length == 0 ? this.result = false : this.result = true
       this.loading = false
-      searchResult ? this.result = true : this.result = false
       this.blogContent = searchResult
     }, () => {
       // Operation Failed

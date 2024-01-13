@@ -1,25 +1,26 @@
 <div class="login">
   <img src="/assets/images/logo.png" alt="logo" [routerLink]="['/']" class="logo"/>
   <div class="content">
-    <form [formGroup]="loginForm">
-      <label>Email</label>
-      <input formControlName="emailAddressOrUserName" matInput required placeholder='you@mail.com' class="input"/>
-      <label class="label">Password</label>
-      <div class="password">
-        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required placeholder='Password' class="input"/>
-        <button mat-icon-button matSuffix (click)="hide = !hide" class="button">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </div>
+    <form [formGroup]="loginForm" (submit)="loginUser()">
+      <mat-form-field class="email">
+        <mat-label>Email</mat-label>
+        <input formControlName="emailAddressOrUserName" matInput placeholder="me@mail.com">
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-error *ngIf="loginForm.value.emailAddressOrUserName == ''">UserName or email required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" placeholder="Password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="loginForm.value.password == ''">Password required</mat-error>
+      </mat-form-field>
       <p class="recover">
-        <span>
-          <input type="checkbox"/> Remember Me
-        </span>
+        <span><input type="checkbox"/> Remember Me</span>
         <span className={styles.recover}>Forgot Password?</span>
       </p>
       <button type='submit' [disabled]="loginForm.invalid">Login</button>
     </form>
-    <button class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with Google</button>
+    <button disabled class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with Google</button>
     <p [routerLink]="['/register']" class="register">Don’t have an account? Sign up for free</p>
   </div>
   <span>Rabbi</span>

@@ -17,12 +17,12 @@ import { HtmlToTextComponent } from '../html-to-text/html-to-text.component';
 export class BlogCardComponent{
   @Input() blogContent!: BlogContent[]
   constructor(private operation: OperationsService, private router: Router){}
+  totalPages = 1
   currentPage = 1
   dataPerPage = 8
-  totalPages = 1
   indexOfLastItem!: any
   indexOfFirstItem!: any
-  currentBlogContent: any[] = []
+  currentBlogContent!: BlogContent[]
 
   // Page pagination
   ngOnChanges() {
@@ -43,7 +43,7 @@ export class BlogCardComponent{
     this.indexOfLastItem = this.currentPage * this.dataPerPage
     this.indexOfFirstItem = this.indexOfLastItem - this.dataPerPage
     this.totalPages = Math.ceil(this.blogContent.length / this.dataPerPage)
-    this.currentBlogContent = this.blogContent.slice(this.indexOfFirstItem, this.indexOfLastItem)
+    this.currentBlogContent = this.blogContent?.slice(this.indexOfFirstItem, this.indexOfLastItem)
   }
 
   renderPagination = () => {
