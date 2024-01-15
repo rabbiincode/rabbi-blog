@@ -7,6 +7,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'user', component: DashboardComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'password-recovery', component: ForgotPasswordComponent },
   { path: '**', component: NotFoundComponent }
 ]

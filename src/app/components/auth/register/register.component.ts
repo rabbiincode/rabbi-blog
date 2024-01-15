@@ -30,7 +30,7 @@ export class RegisterComponent{
     )
   }
 
-  get registerFormControl() {
+  get registerFormControl(){
     return this.registerForm?.controls
   }
 

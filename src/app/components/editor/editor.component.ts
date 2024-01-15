@@ -8,9 +8,9 @@ import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import { ActivatedRoute, ActivatedRouteSnapshot, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'blog-editor',
@@ -24,8 +24,9 @@ import { ActivatedRoute, ActivatedRouteSnapshot, RouterLink } from '@angular/rou
 export class EditorComponent{
   constructor(private formBuilder: FormBuilder, private operation: OperationsService, private route: ActivatedRoute){}
   postId!: string
-  imageUrl!: string
+  imagePath!: any
   writePost = true
+  imageUrl!: string
   date = new Date()
   formData!: object
   previewNow = false
@@ -38,8 +39,8 @@ export class EditorComponent{
 
   ngOnInit() {
     this.contentForm = this.formBuilder.group({
-      title: [''],
-      content: ['']
+      title: ['', [Validators.required]],
+      content: ['', [Validators.required]]
     })
 
     const snapshot: ActivatedRouteSnapshot = this.route.snapshot
@@ -105,14 +106,14 @@ export class EditorComponent{
     {class: 'calibri', name: 'Calibri'},
     {class: 'comic-sans-ms', name: 'Comic Sans MS'}
     ],
-    uploadUrl: 'v1/image',
-    uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
     ['bold', 'italic'],
     ['fontSize']
     ],
-    // upload: (file: File) => { return this.operation.storeImageUrl(file) }
+    uploadUrl: this.imagePath ? this.imagePath : '',
+    uploadWithCredentials: false,
+    upload: (file: File) => this.imagePath = this.operation.storeEditorImageUrl(file)
   }
 }

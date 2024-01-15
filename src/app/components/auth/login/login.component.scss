@@ -62,6 +62,14 @@ input{
   gap: 0.2rem;
 }
 
+.recover > span > input{
+  cursor: pointer;
+}
+
+.reset{
+  cursor: pointer;
+}
+
 .content > form > button{
   background: var(--bg2);
   color: var(--text1);
@@ -78,6 +86,10 @@ input{
   opacity: 0.7;
 }
 
+.content > form > button:disabled{
+  opacity: 0.6;
+}
+
 .goggle{
    background: var(--bg2);
    width: 100%;
@@ -91,7 +103,7 @@ input{
    font-weight: 500;
    border-radius: 0.5rem;
    padding: 0 0.8rem;
-   margin: 2.5rem 0 1rem;
+   margin: 2.5rem 0 0;
 }
 
 .goggle > img{
@@ -107,12 +119,52 @@ input{
   width: fit-content;
   margin: auto;
   cursor: pointer;
+  margin-top: 1rem;
 }
 
 .register:hover{
   opacity: 0.8;
 }
 
-mat-hint{
+mat-hint, .mail{
   opacity: 0.6;
+}
+
+.timer{
+  text-align: end;
+  margin-top: 1rem;
+}
+
+.token{
+  color: #8bbf8b;
+  cursor: pointer;
+}
+
+.mail, .resend{
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.resend > span{
+  color: #8bbf8b;
+  cursor: pointer;
+}
+
+.reset:hover, .token:hover, .resend > span:hover, input:disabled{
+  opacity: 0.8;
+}
+
+code-input{
+  --item-spacing: 0.625rem;
+  --item-height: 3em;
+  --item-border: none;
+  --item-border-bottom: 0.125rem solid var(--text);
+  --item-border-has-value: none;
+  --item-border-bottom-has-value: 0.125rem solid #888888;
+  --item-border-focused: none;
+  --item-border-bottom-focused: 0.125rem solid #809070;
+  --item-shadow-focused: none;
+  --item-border-radius: 0;
+  color: var(--text);
+  margin-top: 3rem;
 }

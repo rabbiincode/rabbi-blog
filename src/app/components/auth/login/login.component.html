@@ -16,7 +16,7 @@
       </mat-form-field>
       <p class="recover">
         <span><input type="checkbox"/> Remember Me</span>
-        <span className={styles.recover}>Forgot Password?</span>
+        <span [routerLink]="['/password-recovery']" class="reset">Forgot Password?</span>
       </p>
       <button type='submit' [disabled]="loginForm.invalid">Login</button>
     </form>
