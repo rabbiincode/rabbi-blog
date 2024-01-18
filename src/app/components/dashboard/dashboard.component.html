@@ -1,7 +1,7 @@
 <div class="blog">
   <blog-header></blog-header>
   <div class="image">
-    <img src="/assets/images/blog/blog4.png" alt="img" class="url">
+    <img [src]="randomImage" alt="img" class="url">
   </div>
   <button (click)="writePost()" class="publish">Publish now</button>
   <div class="content">
@@ -9,9 +9,10 @@
     <p class="quotes">“Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives”</p>
   </div>
 
-  <div *ngIf="blogContent" class="read">
-    <p class="more">Published Work(s)</p>
-    <blog-blog-card [blogContent]="blogContent"></blog-blog-card>
+  <div class="read">
+    <p>Published Work(s) <mat-icon class="arrow">expand_more</mat-icon></p>
+    <blog-blog-card *ngIf="blogContent?.length !== 0" [blogContent]="blogContent"></blog-blog-card>
+    <span *ngIf="blogContent?.length == 0">No published post(s) yet___  <strong (click)="writePost()">Publish now</strong></span>
   </div>
   <blog-footer></blog-footer>
   <blog-scroll-to-top></blog-scroll-to-top>

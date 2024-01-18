@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from '../../services/alert.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
@@ -13,13 +14,13 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 @Component({
   selector: 'blog-blog',
   standalone: true,
-  imports: [CommonModule, BlogCardComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, MatIconModule, ScrollToTopComponent],
+  imports: [BlogCardComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, ScrollToTopComponent, CommonModule, MatIconModule],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'
 })
 
 export class BlogComponent{
-  constructor(private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
+  constructor(private activatedRoute: ActivatedRoute, private alert: AlertService, private operation: OperationsService, private router: Router){}
   loading = false
   previewImageUrl!: string
   @Input() preview = false
@@ -74,11 +75,13 @@ export class BlogComponent{
     this.operation.updatePost(this.previewData[0].postId, this.previewData[0]).then(() => {
       // Operation Successful
       this.loading = false
+      this.successAlert()
       this.router.navigate(['/user'])
     }, () => {
       // Operation Failed
       this.loading = false
       this.back.emit(false)
+      this.failAlert()
     })
   }
 
@@ -91,11 +94,15 @@ export class BlogComponent{
     this.operation.createPost(this.previewData[0]).then(() => {
       // Operation Successful
       this.loading = false
+      this.successAlert()
       this.router.navigate(['/user'])
     }, () => {
       // Operation Failed
       this.loading = false
       this.back.emit(false)
+      this.failAlert()
     })
   }
+  successAlert = () => this.alert.openSuccessDialog('0ms', '0ms')
+  failAlert = () => this.alert.openFailDialog('0ms', '0ms')
 }

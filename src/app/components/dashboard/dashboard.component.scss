@@ -13,7 +13,7 @@
 }
 
 .publish{
-  background: #86efac;
+  background: var(--publish);
   color: #000;
   width: fit-content;
   font-size: 1.2rem;
@@ -34,7 +34,7 @@
 }
 
 .title > span{
-  color: #86efac;
+  color: var(--publish);
   font-size: 1.3rem;
   font-style: oblique;
 }
@@ -47,7 +47,30 @@
   padding: 2.5rem 1.5rem 0;
 }
 
-.more{
-  color: green;
+.read > p{
+  color: var(--publish);
+  display: flex;
+  align-items: center;
   font-size: 1.5rem;
+}
+
+.read > span{
+  color: red;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  margin-top: 5rem;
+}
+
+strong{
+  color: var(--publish);
+  font-size: 1.2rem;
+  font-style: italic;
+  opacity: 1;
+  cursor: pointer;
+}
+
+strong:hover{
+  opacity: 0.8;
 }

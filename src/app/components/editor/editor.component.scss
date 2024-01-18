@@ -15,6 +15,17 @@
   padding: 0.7rem;
 }
 
+.banner-upload > span{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.5;
+}
+
 .banner-upload-button > img{
   width: 1.5rem;
   height: 1.5rem;
@@ -50,12 +61,17 @@
   height: auto;
   min-height: 5rem;
   outline: none;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 600;
   resize: none;
   border: 0.1px dotted var(--button-border);
   border-radius: 0.5rem;
   padding: 0.625rem;
+}
+
+textarea::placeholder{
+  color: var(--text) !important;
+  opacity: 0.6;
 }
 
 textarea::-webkit-scrollbar{
@@ -82,21 +98,33 @@ textarea::-webkit-scrollbar{
   padding: 0 2rem;
 }
 
-.angular-editor .angular-editor-toolbar{
+.ql-container{
+  border: none !important;
+}
+
+.ql-toolbar{
   background: var(--bg1) !important;
-  border: 0.0625rem solid var(--button-border) !important;
+  border: none !important;
   border-radius: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
-.angular-editor .angular-editor-toolbar button{
-  background: var(--text1) !important;
+.ql-toolbar button{
+  border: 1px solid var(--button-border) !important;
+}
+
+.ql-editor{
+  border: 0.0625rem solid var(--button-border) !important;
+  border-radius: 0.5rem !important;
+  outline: none !important;
+  min-height: 8rem !important;
+}
+
+.ql-editor::before{
   color: var(--text) !important;
-  border: 0.0625rem solid var(--button-border) !important;
-}
-
-.angular-editor .angular-editor-textarea{
-  border: 0.0625rem solid var(--button-border) !important;
-  border-radius: 0.5rem !important;
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.6;
 }
 
 @media (max-width: 1050px){

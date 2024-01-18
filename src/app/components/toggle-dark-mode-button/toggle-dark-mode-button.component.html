@@ -1,4 +1,4 @@
 <div class="toggle-button">
-  <mat-icon *ngIf="darkMode" (click)="toggleDarkMode()" class="icon">wb_sunny</mat-icon>
-  <mat-icon *ngIf="!darkMode" (click)="toggleDarkMode()" class="icon">brightness_4</mat-icon>
+  <mat-icon *ngIf="color" (click)="toggleDarkMode()" class="icon">wb_sunny</mat-icon>
+  <mat-icon *ngIf="!color" (click)="toggleDarkMode()" class="icon">brightness_4</mat-icon>
 </div>

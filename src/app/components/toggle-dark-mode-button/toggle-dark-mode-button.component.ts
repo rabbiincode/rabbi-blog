@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { ToggleDarkModeService } from '../../services/toggle-dark-mode.service';
 
 @Component({
   selector: 'blog-toggle-dark-mode-button',
@@ -11,9 +12,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 
 export class ToggleDarkModeButtonComponent{
-  darkMode = false
+  constructor(private colorMode: ToggleDarkModeService){}
+  color = this.colorMode.colorMode == 'false'
   toggleDarkMode = () => {
-    document.body.classList.toggle('dark-theme')
-    this.darkMode = !this.darkMode
+    this.colorMode.toggleDarkMode()
+    this.color = this.colorMode.colorMode == 'false'
   }
 }

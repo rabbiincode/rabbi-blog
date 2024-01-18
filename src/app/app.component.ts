@@ -1,6 +1,7 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, Inject, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { ToggleDarkModeService } from './services/toggle-dark-mode.service';
 
 @Component({
   selector: 'blog-root',
@@ -12,11 +13,12 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
 export class AppComponent{
   // On route change, page scroll to top
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private renderer: Renderer2){}
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private renderer: Renderer2, private colorMode: ToggleDarkModeService){}
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) this.scrollToTop()
     })
+    this.colorMode.setColorMode()
   }
 
   private scrollToTop = () => {

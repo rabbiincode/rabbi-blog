@@ -5,13 +5,14 @@
     <label for="banner-upload" class="banner-upload-button">
       <img src="/assets/images/upload.png" alt="upload"/>
     </label>
+    <span *ngIf="!imageUrl">upload cover banner image</span>
     <img *ngIf="imageUrl" [src]="imageUrl" alt="banner" class="url">
   </div>
   <button [routerLink]="'/user'" class="back"><mat-icon class="arrow">navigate_before</mat-icon>back</button>
 
   <form [formGroup]="contentForm" class="content">
-    <textarea formControlName="title" type="text" placeholder="title..." required class="text"></textarea>
-    <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
+    <textarea formControlName="title" type="text" placeholder="title..." class="text"></textarea>
+    <quill-editor formControlName="content" [modules]="quillConfig" placeholder="Start Writing..."></quill-editor>
     <button [disabled]="!imageUrl || contentForm.invalid" (click)="preview()" class="preview">Preview</button>
   </form>
   <blog-footer></blog-footer>

@@ -3,26 +3,27 @@ import { Component, Input } from '@angular/core';
 import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
-import { OperationsService } from '../../services/operations.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AlertService } from '../../services/alert.service';
 import { HtmlToTextComponent } from '../html-to-text/html-to-text.component';
 
 @Component({
   selector: 'blog-blog-card',
   standalone: true,
-  imports: [HtmlToTextComponent, CommonModule, MatIconModule, RouterModule],
+  imports: [HtmlToTextComponent, CommonModule, MatDialogModule, MatIconModule, RouterModule],
   templateUrl: './blog-card.component.html',
   styleUrl: './blog-card.component.scss'
 })
 
 export class BlogCardComponent{
-  @Input() blogContent!: BlogContent[]
-  constructor(private operation: OperationsService, private router: Router){}
+  constructor(private alert: AlertService, private router: Router){}
   totalPages = 1
   currentPage = 1
   dataPerPage = 8
   indexOfLastItem!: any
   indexOfFirstItem!: any
   currentBlogContent!: BlogContent[]
+  @Input() blogContent!: BlogContent[]
 
   // Page pagination
   ngOnChanges() {
@@ -30,10 +31,14 @@ export class BlogCardComponent{
     this.updatePagination()
   }
 
-  getFirstWords = (content: string | undefined): string => {
+  ngOnInit() { 
+    this.updatePagination()
+  }
+
+  getFirstWords = (content: string): string => {
     if (content){
-      // Split the content into words and take the first 20 words
-      const words = content.split(/\s+/).slice(0, 20)
+      // Split the content into words and take the first 15 words
+      const words = content.split(/\s+/).slice(0, 15)
       return words.join(' ') + '...'
     } else return ''
   }
@@ -73,11 +78,7 @@ export class BlogCardComponent{
     this.router.navigate(['/editor'], { queryParams: { write: 'edit-post', post: postId } })
   }
   deletePost = (postId: string) => {
-    this.operation.deletePost(postId).then(() => {
-      // Operation Successful
-      this.router.navigate(['/'])
-    }, () => {
-      // Operation Failed
-    })
+    this.alert.getPostId(postId)
+    this.alert.openDeleteDialog('0ms', '0ms')
   }
 }

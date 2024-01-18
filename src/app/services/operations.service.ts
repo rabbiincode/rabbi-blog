@@ -1,5 +1,5 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable, Observer, finalize } from 'rxjs';
 import { BlogContent } from '../components/interfaces/content';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDoc, getDoc } from '@angular/fire/firestore';
@@ -9,10 +9,6 @@ import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDo
 })
 
 export class OperationsService{
-  total?: number
-  loaded?: number
-  url?: string
-  type!: 'progress' | 'complete'
   contentRef = collection(this.firestore, 'posts')
   constructor(private firestore: Firestore, private storage: AngularFireStorage){}
 
@@ -55,37 +51,6 @@ export class OperationsService{
           })
         }
       }, (error) => reject(error))
-    })
-  }
-
-  storeEditorImageUrl = (image: File): Observable<any> => {
-    const filePath = `images/${Date.now()}/${image.name}`
-    const fileRef = this.storage.ref(filePath)
-    const upload = this.storage.upload(filePath, image)
-
-    return new Observable<any>((observer: Observer<any>) => {
-      upload.snapshotChanges().pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe(
-            url => {
-              observer.next({ type: 'complete', url })
-              observer.complete()
-            },
-            error => observer.error(error)
-          )
-        })
-      ).subscribe(
-        snapshot => {
-          if (snapshot?.bytesTransferred !== undefined && snapshot?.totalBytes !== undefined){
-            observer.next({
-              type: 'progress',
-              loaded: snapshot?.bytesTransferred,
-              total: snapshot?.totalBytes
-            })
-          }
-        },
-        error => observer.error(error)
-      )
     })
   }
 }

@@ -1,21 +1,20 @@
+import { QuillModule } from 'ngx-quill';
 import { CommonModule } from '@angular/common';
 import { BlogContent } from '../interfaces/content';
 import { BlogComponent } from '../blog/blog.component';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
-import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import { ActivatedRoute, ActivatedRouteSnapshot, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'blog-editor',
   standalone: true,
-  imports: [BlogComponent, BlogCardComponent, FooterComponent, HeaderComponent, AngularEditorModule, CommonModule, HttpClientModule, MatIconModule, ReactiveFormsModule, RouterLink],
+  imports: [BlogComponent, BlogCardComponent, FooterComponent, HeaderComponent, CommonModule, MatIconModule, QuillModule, ReactiveFormsModule, RouterLink],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss',
   encapsulation: ViewEncapsulation.None
@@ -24,7 +23,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class EditorComponent{
   constructor(private formBuilder: FormBuilder, private operation: OperationsService, private route: ActivatedRoute){}
   postId!: string
-  imagePath!: any
   writePost = true
   imageUrl!: string
   date = new Date()
@@ -81,39 +79,25 @@ export class EditorComponent{
     }]
     this.previewNow = true
   }
-
   back = () => this.previewNow = false
 
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: 'auto',
-    minHeight: '8rem',
-    maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    outline: false,
-    placeholder: 'Start Writing...',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    defaultFontSize: '',
-    fonts: [
-    {class: 'arial', name: 'Arial'},
-    {class: 'times-new-roman', name: 'Times New Roman'},
-    {class: 'calibri', name: 'Calibri'},
-    {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-    ],
-    sanitize: true,
-    toolbarPosition: 'top',
-    toolbarHiddenButtons: [
-    ['bold', 'italic'],
-    ['fontSize']
-    ],
-    uploadUrl: this.imagePath ? this.imagePath : '',
-    uploadWithCredentials: false,
-    upload: (file: File) => this.imagePath = this.operation.storeEditorImageUrl(file)
+  quillConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }], // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'script': 'sub'}, { 'script': 'super' }], // superscript/subscript
+      [{ 'indent': '-1'}, { 'indent': '+1' }], // outdent/indent
+      [{ 'direction': 'rtl' }], // text direction
+      [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean'], // remove formatting button
+      ['link', 'image', 'video'], // link and image, video
+      ['spanblock']
+    ]
   }
 }

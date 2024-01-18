@@ -5,9 +5,9 @@
         <img [src]="blog.bannerUrl" alt="img" class="banner">
       </div>
       <h1 class="title">{{blog.title}}</h1>
-      <p class="overview">
+      <div class="overview">
         <blog-html-to-text [htmlContent]="getFirstWords(blog.overview)"></blog-html-to-text>
-      </p>
+      </div>
       <div class="button">
         <button (click)="readPost(blog.postId)">Read</button>
         <button (click)="editPost(blog.postId)" class="edit">Edit</button>
