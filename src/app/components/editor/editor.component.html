@@ -12,7 +12,11 @@
 
   <form [formGroup]="contentForm" class="content">
     <textarea formControlName="title" type="text" placeholder="title..." class="text"></textarea>
-    <quill-editor formControlName="content" [modules]="quillConfig" placeholder="Start Writing..."></quill-editor>
+    <div class="overview">
+      <textarea formControlName="overview" type="text" placeholder="overview..." class="text text1"></textarea>
+      <label>write a catchy and concise front cover overview</label>
+    </div>
+    <quill-editor formControlName="content" [modules]="quillConfig" placeholder="start writing..."></quill-editor>
     <button [disabled]="!imageUrl || contentForm.invalid" (click)="preview()" class="preview">Preview</button>
   </form>
   <blog-footer></blog-footer>

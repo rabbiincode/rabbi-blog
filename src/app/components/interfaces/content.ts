@@ -3,6 +3,7 @@ export interface BlogContent{
   banner?: File | null,
   bannerUrl: string
   category: string,
+  content: string,
   overview: string,
   postId: string;
   publishedDate: string,

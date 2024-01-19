@@ -38,7 +38,8 @@ export class EditorComponent{
   ngOnInit() {
     this.contentForm = this.formBuilder.group({
       title: ['', [Validators.required]],
-      content: ['', [Validators.required]]
+      content: ['', [Validators.required]],
+      overview: ['', [Validators.required]]
     })
 
     const snapshot: ActivatedRouteSnapshot = this.route.snapshot
@@ -50,11 +51,11 @@ export class EditorComponent{
       if (data){
         const editContent = data
         const editPost = editContent?.filter((post) => post.postId == this.postId)
-        let edit = editPost?.map((post) => ({image: post.bannerUrl, title: post.title, content: post.overview, publishedDate: post.publishedDate}))
+        let edit = editPost?.map((post) => ({image: post.bannerUrl, title: post.title, overview: post.overview, content: post.content, publishedDate: post.publishedDate}))
         this.publishedDate = edit[0]?.publishedDate
 
-        // Pre-fill textarea and image when editing posts
-        !this.writePost && this.contentForm.patchValue({title: edit[0]?.title, content: edit[0]?.content})
+        // Prefill textarea's and image when editing posts
+        !this.writePost && this.contentForm.patchValue({title: edit[0]?.title, overview: edit[0]?.overview, content: edit[0]?.content})
         this.imageUrl = edit[0]?.image
       }
     })
@@ -74,8 +75,8 @@ export class EditorComponent{
     if (!this.imageUrl || this.contentForm.invalid) return
     // bannerUrl logic takes care of when post is edited but image is not changed, otherwise it returns empty to be stored in the image storage database first
     this.previewContent = [{
-      category: '', banner: this.selectedImage, bannerUrl: (!this.writePost && !this.selectedImage) ? this.imageUrl : '', title: this.contentForm.value.title, overview: this.contentForm.value.content,
-      publishedDate: this.writePost ? this.getCurrentDate() : this.publishedDate, updatedDate: !this.writePost ? this.getCurrentDate() : '', author: 'rabbi', postId: this.postId
+      category: '', banner: this.selectedImage, bannerUrl: (!this.writePost && !this.selectedImage) ? this.imageUrl : '', title: this.contentForm.value.title, overview: this.contentForm.value.overview,
+      content: this.contentForm.value.content, publishedDate: this.writePost ? this.getCurrentDate() : this.publishedDate, updatedDate: !this.writePost ? this.getCurrentDate() : '', author: 'rabbi', postId: this.postId
     }]
     this.previewNow = true
   }

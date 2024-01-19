@@ -10,7 +10,8 @@
     </div>
     <div class="post">
       <h1 class="title">{{content.title}}</h1>
-      <blog-html-to-text [htmlContent]="content.overview"></blog-html-to-text>
+      <div *ngIf="preview" class="overview">{{content.overview}}</div>
+      <blog-html-to-text [htmlContent]="content.content"></blog-html-to-text>
     </div>
   </div>
 

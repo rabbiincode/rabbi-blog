@@ -40,7 +40,7 @@ export class BlogComponent{
 
     this.previewData = this.previewContent?.map((post) => ({
       title: post.title, author: post.author, banner: post.banner, bannerUrl: post.bannerUrl, category: post.category,
-      overview: post.overview, postId: post.postId, publishedDate: post.publishedDate, updatedDate: post.updatedDate
+      content: post.content, overview: post.overview, postId: post.postId, publishedDate: post.publishedDate, updatedDate: post.updatedDate
     }))
 
     if (this.preview && this.previewData[0].banner){

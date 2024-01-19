@@ -11,12 +11,11 @@
 .card{
   width: 100%;
   max-width: 400px;
-  height: 30rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   margin: auto;
-  font-size: 1.2rem;
+}
+
+.text{
+  height: 27.5rem;
 }
 
 .image{
@@ -39,8 +38,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 2;
-  height: 5.5rem;
-  font-size: 1.5rem;
+  height: 3.5rem;
+  font-size: 1.5rem !important;
+  font-weight: 500;
 }
 
 .overview{
@@ -49,10 +49,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 3;
-  height: 5.5rem;
+  font-size: 1.2rem;
 }
 
-.button{
+.buttons{
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -60,13 +60,12 @@
   gap: 1rem;
 }
 
-.button > button{
+.buttons > button{
   display: flex;
   font-weight: 700;
   border: 0.1px solid var(--button-border);
   border-radius: 0.8rem;
   padding: 0.5rem 1rem;
-  margin-top: 1rem;
 }
 
 .edit{

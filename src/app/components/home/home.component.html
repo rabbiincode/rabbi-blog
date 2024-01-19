@@ -9,10 +9,9 @@
       <img src="/assets/images/down.png" alt="scroll down" (click)="scrollToBottom()" class="down animate__animated animate__headShake animate__infinite"/>
     </div>
   </div>
-  <ng-container *ngIf="blogContent">
-    <p class="latest">Latest Posts</p>
-    <blog-blog-card [blogContent]="blogContent"></blog-blog-card>
-  </ng-container>
+  <p class="latest">Latest Posts</p>
+  <blog-blog-card *ngIf="blogContent?.length !== 0" [blogContent]="blogContent"></blog-blog-card>
+  <p *ngIf="blogContent?.length == 0" class="posts">Post(s) not found</p>
   <blog-footer></blog-footer>
   <blog-scroll-to-top></blog-scroll-to-top>
 </div>

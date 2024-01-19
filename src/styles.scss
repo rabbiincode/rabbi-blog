@@ -50,6 +50,12 @@ button:disabled, input:disabled{
   cursor: auto;
 }
 
+h1, h2, h3, h4, h5, h6{
+  font-size: 1rem !important;
+  line-height: normal !important;
+  margin: 1rem 0 !important;
+}
+
 .loader{
   position: absolute;
   top: 50%;
@@ -117,12 +123,12 @@ button:disabled, input:disabled{
 
 @media (max-width: 110px){
   html, body{
-    font-size: clamp(1px, 2.3px, 4.3px);
+    font-size: clamp(1.3px, 2.7px, 4.3px);
   }
 }
 
 @media (max-width: 60px){
   html, body{
-    font-size: clamp(0.85px, 1.75px, 3.7px);
+    font-size: clamp(0.9px, 1.7px, 3.7px);
   }
 }

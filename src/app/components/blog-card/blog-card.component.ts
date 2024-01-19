@@ -5,12 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AlertService } from '../../services/alert.service';
-import { HtmlToTextComponent } from '../html-to-text/html-to-text.component';
 
 @Component({
   selector: 'blog-blog-card',
   standalone: true,
-  imports: [HtmlToTextComponent, CommonModule, MatDialogModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatDialogModule, MatIconModule, RouterModule],
   templateUrl: './blog-card.component.html',
   styleUrl: './blog-card.component.scss'
 })
@@ -33,14 +32,6 @@ export class BlogCardComponent{
 
   ngOnInit() { 
     this.updatePagination()
-  }
-
-  getFirstWords = (content: string): string => {
-    if (content){
-      // Split the content into words and take the first 15 words
-      const words = content.split(/\s+/).slice(0, 15)
-      return words.join(' ') + '...'
-    } else return ''
   }
 
   updatePagination = () => {

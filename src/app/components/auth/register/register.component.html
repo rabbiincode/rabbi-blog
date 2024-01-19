@@ -24,7 +24,7 @@
         <input formControlName="confirmPassword" matInput [type]="hide1 ? 'password' : 'text'" placeholder="Confirm Password">
         <mat-icon matSuffix (click)="hide1 = !hide1">{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error *ngIf="registerForm.value.password !== '' && registerForm.value.confirmPassword == ''">
-          Confirm Password required
+          Confirm password required
         </mat-error>
         <mat-error *ngIf="registerFormControl?.['confirmPassword']?.errors?.['passwordMatchError'] && registerForm.value.password !== '' && registerForm.value.confirmPassword !== ''">
           Password does not match
@@ -33,7 +33,7 @@
 
       <button type='submit' [disabled]="registerForm.invalid">Register</button>
     </form>
-    <button disabled class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with Google</button>
+    <button disabled class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with google</button>
     <p [routerLink]="['/login']" class="register">Already have an account? Login</p>
   </div>
   <span>Rabbi</span>

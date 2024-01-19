@@ -1,14 +1,14 @@
 <div class="cards">
   <div class="content">
     <div *ngFor="let blog of currentBlogContent" class="card">
-      <div class="image">
-        <img [src]="blog.bannerUrl" alt="img" class="banner">
+      <div class="text">
+        <div class="image">
+          <img [src]="blog.bannerUrl" alt="img" class="banner">
+        </div>
+        <h1 class="title">{{blog.title}}</h1>
+        <div class="overview">{{blog.overview}}</div>
       </div>
-      <h1 class="title">{{blog.title}}</h1>
-      <div class="overview">
-        <blog-html-to-text [htmlContent]="getFirstWords(blog.overview)"></blog-html-to-text>
-      </div>
-      <div class="button">
+      <div class="buttons">
         <button (click)="readPost(blog.postId)">Read</button>
         <button (click)="editPost(blog.postId)" class="edit">Edit</button>
         <button (click)="deletePost(blog.postId)" class="delete">Delete</button>

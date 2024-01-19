@@ -22,10 +22,8 @@
 }
 
 .welcome > h1{
-  font-size: 1.7rem;
+  font-size: 1.7rem !important;
   font-weight: 600;
-  line-height: normal;
-  margin: 0 0 1rem;
 }
 
 .welcome > p{
@@ -47,6 +45,14 @@
   font-size: 1.5rem;
   font-weight: 500;
   padding: 4rem 1.5rem 0;
+}
+
+.posts{
+  color: #ec9292;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 4rem 0;
 }
 
 @keyframes change{

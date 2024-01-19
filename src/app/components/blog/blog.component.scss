@@ -1,7 +1,3 @@
-.blog{
-  overflow-x: hidden;
-}
-
 .image{
   background: var(--bg1);
   width: 100%;
@@ -41,15 +37,22 @@
 }
 
 .post{
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  overflow-x: hidden;
   padding: 1.5rem;
-  overflow-wrap: break-word;
 }
 
 .title{
   text-align: center;
-  font-size: 2rem;
+  font-size: 2rem !important;
   font-weight: 500;
   padding: 2rem 0;
+}
+
+.overview{
+  text-align: center;
 }
 
 .read{
