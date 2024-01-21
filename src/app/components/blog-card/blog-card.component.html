@@ -10,8 +10,8 @@
       </div>
       <div class="buttons">
         <button (click)="readPost(blog.postId)">Read</button>
-        <button *ngIf="username == blog.author"  (click)="editPost(blog.postId)" class="edit">Edit</button>
-        <button *ngIf="username == blog.author || admin"  (click)="deletePost(blog.postId)" class="delete">Delete</button>
+        <button [disabled]="!isLogin || isLogin && username !== blog.author" (click)="editPost(blog.postId)" class="edit">Edit</button>
+        <button [disabled]="!isLogin || isLogin && username !== blog.author" (click)="deletePost(blog.postId)" class="delete">Delete</button>
       </div>
     </div>
   </div>

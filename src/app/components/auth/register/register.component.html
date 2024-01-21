@@ -31,7 +31,10 @@
         </mat-error>
       </mat-form-field>
 
-      <button type='submit' [disabled]="registerForm.invalid">Register</button>
+      <button type='submit' [disabled]="registerForm.invalid">
+        <span *ngIf="!loading">Register</span>
+        <span *ngIf="loading" class="load"></span>
+      </button>
     </form>
     <button (click)="registerWithGoggle()" class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with google</button>
     <p [routerLink]="['/login']" class="register">Already have an account? Login</p>

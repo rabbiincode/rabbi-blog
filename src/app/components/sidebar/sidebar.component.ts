@@ -24,5 +24,5 @@ export class SidebarComponent{
 
   search = () => this.searchInput.emit(false)
   sidebarToggle = () => this.toggleSidebar.emit(false)
-  authenticate = () => this.isLogin ? this.auth.logOut() : this.router.navigate(['/login'])
+  authenticate = () => this.isLogin ? this.isLogin = this.auth.logOut() : this.router.navigate(['/login'])
 }

@@ -21,6 +21,7 @@ export class BlogCardComponent{
   totalPages = 1
   currentPage = 1
   dataPerPage = 8
+  isLogin = false
   username!: string
   indexOfLastItem!: any
   indexOfFirstItem!: any
@@ -35,6 +36,7 @@ export class BlogCardComponent{
 
   ngOnInit() {
     this.admin = this.auth.isAdmin
+    this.isLogin = this.auth.isLogin
     this.username = this.auth.getUsername(this.auth.username)
     this.updatePagination()
   }

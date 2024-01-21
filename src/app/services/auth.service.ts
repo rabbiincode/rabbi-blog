@@ -24,7 +24,7 @@ export class AuthService{
       this.afAuth.authState.subscribe((user) => {
         if (user){
           this.username = user.email
-          this.router.navigate(['/'])
+          this.router.navigate(['/user'])
         }      
       })
     })
@@ -44,7 +44,7 @@ export class AuthService{
           this.isLogin = true
           this.successAlert()
           this.username = user.email
-          this.router.navigate(['/'])
+          this.router.navigate(['/user'])
         }      
       })
     })
@@ -67,7 +67,7 @@ export class AuthService{
         if (user){
           this.isLogin = true
           this.username = user.email
-          this.router.navigate(['/'])
+          this.router.navigate(['/user'])
         }      
       })
     })
@@ -77,8 +77,10 @@ export class AuthService{
   }
 
   logOut = () => {
+    this.username = ''
     this.isLogin = false
     this.router.navigate(['/'])
+    return this.isLogin
   }
 
   getUsername = (mail: string) => {

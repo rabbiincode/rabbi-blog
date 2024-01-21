@@ -20,6 +20,7 @@ import { EmailValidator, PasswordPatternValidator } from '../../customValidation
 export class LoginComponent{
   constructor(private auth: AuthService, private cookieService: CookieService, private formBuilder: FormBuilder){}
   hide = true
+  loading = false
   cookieValue!: string
   loginForm!: FormGroup
   currentDate = new Date()
@@ -44,9 +45,11 @@ export class LoginComponent{
     this.rememberMe && this.loginForm.patchValue({email: token?.email, password: token?.password})
   }
 
-  loginUser = () => {
+  loginUser = async () => {
+    this.loading = true
     this.handleCookies()
-    this.auth.SignIn(this.loginForm.value.email, this.loginForm.value.password)
+    await this.auth.SignIn(this.loginForm.value.email, this.loginForm.value.password)
+    this.loading = false
   }
   loginWithGoggle = () => this.auth.SignInWithGoggle()
 

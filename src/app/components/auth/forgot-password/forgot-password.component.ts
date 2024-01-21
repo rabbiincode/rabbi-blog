@@ -21,6 +21,7 @@ export class ForgotPasswordComponent{
   hide = true
   hide1 = true
   email!: string
+  loading = false
   countDown!: string
   resend = false
   resetForm!: FormGroup
@@ -107,5 +108,5 @@ export class ForgotPasswordComponent{
   validateToken = (code: string) => {
     this.reset = 3
   }
-  resetPassword = () => {}
+  resetPassword = async () => {}
 }

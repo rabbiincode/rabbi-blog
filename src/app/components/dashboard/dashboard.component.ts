@@ -32,8 +32,8 @@ export class DashboardComponent{
     this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
         const userPosts = data
-        // const publishedPost = userPosts?.filter((post) => post.author == author)
-        this.blogContent = userPosts
+        const publishedPost = userPosts?.filter((post) => this.username == post.author)
+        this.blogContent = publishedPost
       }
     })
     this.operation.getAllQuote().subscribe((data: Quote[]) => {

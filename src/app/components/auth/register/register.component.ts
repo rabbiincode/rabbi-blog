@@ -19,6 +19,7 @@ export class RegisterComponent{
   constructor(private auth: AuthService, private formBuilder: FormBuilder){}
   hide = true
   hide1 = true
+  loading = false
   registerForm!: FormGroup
 
   ngOnInit() {
@@ -35,8 +36,10 @@ export class RegisterComponent{
     return this.registerForm?.controls
   }
 
-  registerUser = () => {
-    this.auth.SignUp(this.registerForm.value.email, this.registerForm.value.password)
+  registerUser = async () => {
+    this.loading = true
+    await this.auth.SignUp(this.registerForm.value.email, this.registerForm.value.password)
+    this.loading = false
   }
   registerWithGoggle = () => this.auth.SignInWithGoggle()
 }

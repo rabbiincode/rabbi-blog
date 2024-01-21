@@ -18,7 +18,10 @@
         <span><input type="checkbox" [checked]="rememberMe" (change)="handleCheckbox()"/> Remember Me</span>
         <span [routerLink]="['/password-recovery']" class="reset">Forgot Password?</span>
       </div>
-      <button type='submit' [disabled]="loginForm.invalid">Login</button>
+      <button type='submit' [disabled]="loginForm.invalid">
+        <span *ngIf="!loading">Login</span>
+        <span *ngIf="loading" class="load"></span>
+      </button>
     </form>
     <button (click)="loginWithGoggle()" class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with google</button>
     <p [routerLink]="['/register']" class="register">Don’t have an account? Sign up for free</p>

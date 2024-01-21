@@ -94,8 +94,8 @@ export class BlogComponent{
     this.operation.createPost(this.previewData[0]).then(() => {
       // Operation Successful
       this.loading = false
-      // this.successAlert()
-      // // this.router.navigate(['/user'])
+      this.successAlert()
+      this.router.navigate(['/user'])
     }, () => {
       // Operation Failed
       this.loading = false

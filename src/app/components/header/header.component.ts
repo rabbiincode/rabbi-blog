@@ -40,7 +40,7 @@ export class HeaderComponent{
   }
 
   searchInput = () => this.search = !this.search
-  authenticate = () => this.isLogin ? this.auth.logOut() : this.router.navigate(['/login'])
+  authenticate = () => this.isLogin ? this.isLogin = this.auth.logOut() : this.router.navigate(['/login'])
 
   toggleSidebar = () => {
     this.open = !this.open
