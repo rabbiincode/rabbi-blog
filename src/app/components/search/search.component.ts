@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
@@ -18,13 +19,15 @@ import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/route
 })
 
 export class SearchComponent{
+  admin = false
   result = false
   loading = false
   searchValue!: string
   blogContent!: BlogContent[]
 
-  constructor(private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
+  constructor(private auth: AuthService, private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
   ngOnInit() {
+    this.admin = this.auth.isAdmin
     this.loading = true
     // Subscribe to route change event and rerender component on route change
     this.activatedRoute.queryParams.subscribe(params => {
@@ -34,7 +37,7 @@ export class SearchComponent{
   }
 
   getSearchResult = (value: string) => {
-    this.operation.getAll().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       const searchContent = data
       const searchResult = searchContent?.filter((search) => search?.title?.toLowerCase().includes(value?.toLowerCase()) || search?.overview?.toLowerCase().includes(value?.toLowerCase()))
       searchResult?.length == 0 ? this.result = false : this.result = true
@@ -43,7 +46,7 @@ export class SearchComponent{
     }, () => {
       // Operation Failed
       this.loading = false
-      this.router.navigate(['/'])
+      this.router.navigate([this.admin ? '/admin' : '/'])
     })
   }
 }

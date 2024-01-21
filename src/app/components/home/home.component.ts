@@ -21,7 +21,7 @@ export class HomeComponent{
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private operation: OperationsService){}
 
   ngOnInit() {
-    this.operation.getAll().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       this.blogContent = data
     })
   }

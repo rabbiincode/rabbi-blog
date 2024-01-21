@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlogContent } from '../interfaces/content';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { BlogContent, Quote } from '../interfaces/content';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
@@ -21,15 +21,29 @@ export class DashboardComponent{
   constructor(private operation: OperationsService, private router: Router){}
   blogContent!: BlogContent[]
   userName = 'Awesome Person'
-  randomImage = `/assets/images/blog/blog${Math.floor(Math.random() * 6) + 1}.png`
+  imageUrl = '/assets/images/blog/blog6.png'
+  randomImage = '/assets/images/blog/blog6.png'
+  randomQuote = 'Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives'
 
   ngOnInit(){
-    this.operation.getAll().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
         const userPosts = data
         // const publishedPost = userPosts?.filter((post) => post.author == author)
         this.blogContent = userPosts
       }
+    })
+    this.operation.getAllQuote().subscribe((data: Quote[]) => {
+      let quotes: Array<string> = []
+      data.map(quote => quotes.push(quote.quote))
+      // Get random quotes from database
+      if (quotes?.length !== 0) this.randomQuote = quotes[Math.floor(Math.random() * quotes?.length) + 1]
+    })
+    this.operation.getAllImageUrls().subscribe(urls => {
+      let imagePath: Array<string> = []
+      urls.map(url => imagePath.push(url))
+      // Get random image from database
+      if (imagePath?.length !== 0) this.randomImage = imagePath[Math.floor(Math.random() * imagePath?.length) + 1]
     })
   }
 

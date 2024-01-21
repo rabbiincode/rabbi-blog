@@ -1,0 +1,16 @@
+.posts{
+  min-height: 100vh;
+}
+
+.welcome{
+  padding: 0 1.5rem;
+}
+
+.all{
+  position: sticky;
+  top: 2rem;
+  color: var(--publish);
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 4rem 1.5rem 0;
+}

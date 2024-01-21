@@ -43,6 +43,11 @@
   cursor: pointer;
 }
 
+.active{
+  border-bottom: 0.3rem solid blue;
+  border-radius: 0 0 0.2rem 0.2rem;
+}
+
 .input{
   flex: 0.5;
 }

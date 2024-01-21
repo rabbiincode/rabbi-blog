@@ -2,7 +2,7 @@
   <blog-header></blog-header>
   <div *ngIf="!loading && !result" class="not-found">
     <span>No result found</span>
-    <button [routerLink]="'/'"><mat-icon class="circle-icon">navigate_before</mat-icon>back</button>
+    <button [routerLink]="admin ? '/admin' : '/'"><mat-icon class="circle-icon">navigate_before</mat-icon>back</button>
   </div>
 
   <div *ngIf="result" class="result">

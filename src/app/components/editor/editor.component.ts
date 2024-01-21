@@ -47,7 +47,7 @@ export class EditorComponent{
     this.postId = snapshot.queryParams['post']
 
     // Get post content the user want to edit
-    this.operation.getAll().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
         const editContent = data
         const editPost = editContent?.filter((post) => post.postId == this.postId)

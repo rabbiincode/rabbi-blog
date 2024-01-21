@@ -13,7 +13,12 @@ import { ToggleDarkModeService } from '../../services/toggle-dark-mode.service';
 
 export class ToggleDarkModeButtonComponent{
   constructor(private colorMode: ToggleDarkModeService){}
-  color = this.colorMode.colorMode == 'false'
+  color = true
+
+  ngOnInit() {
+    this.color = this.colorMode.colorMode == 'false'
+  }
+
   toggleDarkMode = () => {
     this.colorMode.toggleDarkMode()
     this.color = this.colorMode.colorMode == 'false'

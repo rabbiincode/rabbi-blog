@@ -10,3 +10,8 @@ export interface BlogContent{
   title: string,
   updatedDate: string,
 }
+
+export interface Quote{
+  quote: string,
+  quoteId: string;
+}

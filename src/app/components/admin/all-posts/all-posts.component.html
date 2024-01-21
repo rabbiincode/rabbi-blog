@@ -1,0 +1,10 @@
+<div class="posts">
+  <blog-header></blog-header>
+  <div class="all-posts">
+    <p class="all">All Posts</p>
+    <blog-blog-card *ngIf="blogContent?.length !== 0" [blogContent]="blogContent"></blog-blog-card>
+    <p *ngIf="blogContent?.length == 0" class="posts">Post(s) not found</p>
+  </div>
+  <blog-footer></blog-footer>
+  <blog-scroll-to-top></blog-scroll-to-top>
+</div>

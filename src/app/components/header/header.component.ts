@@ -2,6 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, HostListener } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ToggleDarkModeButtonComponent } from '../toggle-dark-mode-button/toggle-dark-mode-button.component';
@@ -17,9 +18,14 @@ import { ToggleDarkModeButtonComponent } from '../toggle-dark-mode-button/toggle
 export class HeaderComponent{
   open = false
   login = false
+  admin = false
   search = false
   searchValue!: string
-  constructor(private router: Router){}
+  constructor(private auth: AuthService, private router: Router){}
+
+  ngOnInit() {
+    this.admin = this.auth.isAdmin
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
@@ -33,7 +39,7 @@ export class HeaderComponent{
   }
 
   searchInput = () => this.search = !this.search
-  auth = () => this.login ? '' : this.router.navigate(['/login'])
+  authenticate = () => this.login ? '' : this.router.navigate(['/login'])
 
   toggleSidebar = () => {
     this.open = !this.open

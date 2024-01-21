@@ -52,7 +52,7 @@ export class BlogComponent{
   }
 
   getAllPost = (postId: string) => {
-    this.operation.getAll().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
         const moreContent = data
         const readPost = moreContent?.filter((post) => post.postId == postId)
@@ -70,7 +70,7 @@ export class BlogComponent{
   editPost = async () => {
     this.loading = true
     if (this.previewData[0].banner && !this.previewData[0].bannerUrl){
-      this.previewData[0].bannerUrl = await this.operation.storeImageUrl(this.previewData[0].banner)
+      this.previewData[0].bannerUrl = await this.operation.storeImageUrl('post-images', this.previewData[0].banner)
     }
     this.operation.updatePost(this.previewData[0].postId, this.previewData[0]).then(() => {
       // Operation Successful
@@ -89,7 +89,7 @@ export class BlogComponent{
     this.loading = true
     if (this.previewData[0].banner){
       // Stores image om firebase storage and returns image url
-      this.previewData[0].bannerUrl = await this.operation.storeImageUrl(this.previewData[0].banner)
+      this.previewData[0].bannerUrl = await this.operation.storeImageUrl('post-images', this.previewData[0].banner)
     }
     this.operation.createPost(this.previewData[0]).then(() => {
       // Operation Successful

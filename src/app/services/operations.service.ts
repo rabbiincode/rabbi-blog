@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, from, map, mergeMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BlogContent } from '../components/interfaces/content';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -9,10 +9,11 @@ import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDo
 })
 
 export class OperationsService{
+  quoteRef = collection(this.firestore, 'quote')
   contentRef = collection(this.firestore, 'posts')
   constructor(private firestore: Firestore, private storage: AngularFireStorage){}
 
-  getAll = (): Observable<any[]> => {
+  getAllPosts = (): Observable<any[]> => {
     return collectionData(this.contentRef)
   }
 
@@ -36,10 +37,29 @@ export class OperationsService{
     return await deleteDoc(deleteDocRef)
   }
 
+  getAllQuote = (): Observable<any[]> => {
+    return collectionData(this.quoteRef)
+  }
+
+  createQuote = async (quote: string) => {
+    const newDocRef = await addDoc(this.quoteRef, { quote })
+    return await updateDoc(newDocRef, { quoteId: newDocRef.id })
+  }
+
+  updateQuote = async (quoteId: string, value: any): Promise<void> => {
+    const updateDocRef = doc(this.quoteRef, quoteId)
+    return await updateDoc(updateDocRef, value)
+  }
+
+  deleteQuote = async (quoteId: string) => {
+    const deleteDocRef = doc(this.quoteRef, quoteId)
+    return await deleteDoc(deleteDocRef)
+  }
+
   // Uploads image to firebase storage and return the image path
-  storeImageUrl = (image: File): Promise<string> => {
+  storeImageUrl = (imagePath: string, image: File): Promise<string> => {
     // Creates a unique image path for storage
-    const filePath = `images/${Date.now()}/${image.name}`
+    const filePath = `${imagePath}/${Date.now()}/${image.name}`
     const fileRef = this.storage.ref(filePath)
     const upload = this.storage.upload(filePath, image)
 
@@ -52,5 +72,20 @@ export class OperationsService{
         }
       }, (error) => reject(error))
     })
+  }
+
+  getAllImageUrls = (): Observable<string[]> => {
+    const storageRef = this.storage.ref('site-images')
+    return storageRef.listAll().pipe(
+      mergeMap(result => {
+        const downloadURLPromises = result.items.map(item => item.getDownloadURL())
+        return forkJoin(downloadURLPromises)
+      })
+    )
+  }
+
+  deleteImage = (path: string) => {
+    const fileRef = this.storage.ref(path)
+    return fileRef.delete()
   }
 }
