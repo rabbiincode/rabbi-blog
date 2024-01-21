@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../../../services/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmailValidator, PasswordPatternValidator } from '../../customValidation/custom-validation/custom-validation.component';
 
@@ -17,7 +18,7 @@ import { EmailValidator, PasswordPatternValidator } from '../../customValidation
 })
 
 export class LoginComponent{
-  constructor(private cookieService: CookieService, private formBuilder: FormBuilder){}
+  constructor(private auth: AuthService, private cookieService: CookieService, private formBuilder: FormBuilder){}
   hide = true
   cookieValue!: string
   loginForm!: FormGroup
@@ -27,7 +28,7 @@ export class LoginComponent{
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      emailAddressOrUserName: ['', [Validators.required, EmailValidator]],
+      email: ['', [Validators.required, EmailValidator]],
       password: ['', [Validators.required, PasswordPatternValidator]]
     })
     if (typeof window !== 'undefined'){
@@ -40,13 +41,14 @@ export class LoginComponent{
     this.cookieValue = value
     let token = value && JSON.parse(value)
     // If rememberMe is true, prefill loginForm
-    this.rememberMe && this.loginForm.patchValue({emailAddressOrUserName: token?.emailAddressOrUserName, password: token?.password})
+    this.rememberMe && this.loginForm.patchValue({email: token?.email, password: token?.password})
   }
 
   loginUser = () => {
     this.handleCookies()
+    this.auth.SignIn(this.loginForm.value.email, this.loginForm.value.password)
   }
-  loginWithGoggle = () => {}
+  loginWithGoggle = () => this.auth.SignInWithGoggle()
 
   handleCookies = () => {
     // convert loginForm values to a JSON string

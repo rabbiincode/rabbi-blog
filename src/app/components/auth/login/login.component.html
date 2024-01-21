@@ -4,9 +4,9 @@
     <form [formGroup]="loginForm" (submit)="loginUser()">
       <mat-form-field class="email">
         <mat-label>Email</mat-label>
-        <input formControlName="emailAddressOrUserName" matInput placeholder="me@mail.com">
+        <input formControlName="email" matInput placeholder="me@mail.com">
         <mat-icon matSuffix>mail</mat-icon>
-        <mat-error *ngIf="loginForm.value.emailAddressOrUserName == ''">Username or email required</mat-error>
+        <mat-error *ngIf="loginForm.value.email == ''">Username or email required</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
@@ -20,7 +20,7 @@
       </div>
       <button type='submit' [disabled]="loginForm.invalid">Login</button>
     </form>
-    <button disabled (click)="loginWithGoggle()" class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with google</button>
+    <button (click)="loginWithGoggle()" class="goggle"><img src="/assets/images/goggle.png" alt="goggle"/> Continue with google</button>
     <p [routerLink]="['/register']" class="register">Don’t have an account? Sign up for free</p>
   </div>
   <span>Rabbi</span>

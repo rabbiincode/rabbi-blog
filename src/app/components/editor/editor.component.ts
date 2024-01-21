@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { BlogContent } from '../interfaces/content';
 import { BlogComponent } from '../blog/blog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
-import { ActivatedRoute, ActivatedRouteSnapshot, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'blog-editor',
@@ -21,11 +22,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 
 export class EditorComponent{
-  constructor(private formBuilder: FormBuilder, private operation: OperationsService, private route: ActivatedRoute){}
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
   postId!: string
   writePost = true
   imageUrl!: string
   date = new Date()
+  username!: string
   formData!: object
   previewNow = false
   contentForm!: FormGroup
@@ -36,6 +38,8 @@ export class EditorComponent{
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   ngOnInit() {
+    if (!this.auth.isLogin) this.router.navigate(['/login'])
+    this.username = this.auth.getUsername(this.auth.username)
     this.contentForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
@@ -76,7 +80,7 @@ export class EditorComponent{
     // bannerUrl logic takes care of when post is edited but image is not changed, otherwise it returns empty to be stored in the image storage database first
     this.previewContent = [{
       category: '', banner: this.selectedImage, bannerUrl: (!this.writePost && !this.selectedImage) ? this.imageUrl : '', title: this.contentForm.value.title, overview: this.contentForm.value.overview,
-      content: this.contentForm.value.content, publishedDate: this.writePost ? this.getCurrentDate() : this.publishedDate, updatedDate: !this.writePost ? this.getCurrentDate() : '', author: 'rabbi', postId: this.postId
+      content: this.contentForm.value.content, publishedDate: this.writePost ? this.getCurrentDate() : this.publishedDate, updatedDate: !this.writePost ? this.getCurrentDate() : '', author: this.username, postId: this.postId
     }]
     this.previewNow = true
   }

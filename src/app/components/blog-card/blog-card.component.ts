@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AlertService } from '../../services/alert.service';
 
@@ -15,10 +16,12 @@ import { AlertService } from '../../services/alert.service';
 })
 
 export class BlogCardComponent{
-  constructor(private alert: AlertService, private router: Router){}
+  constructor(private alert: AlertService, private auth: AuthService,  private router: Router){}
+  admin = false
   totalPages = 1
   currentPage = 1
   dataPerPage = 8
+  username!: string
   indexOfLastItem!: any
   indexOfFirstItem!: any
   currentBlogContent!: BlogContent[]
@@ -30,7 +33,9 @@ export class BlogCardComponent{
     this.updatePagination()
   }
 
-  ngOnInit() { 
+  ngOnInit() {
+    this.admin = this.auth.isAdmin
+    this.username = this.auth.getUsername(this.auth.username)
     this.updatePagination()
   }
 

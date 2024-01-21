@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service';
 import { BlogContent, Quote } from '../interfaces/content';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
@@ -18,14 +19,16 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 })
 
 export class DashboardComponent{
-  constructor(private operation: OperationsService, private router: Router){}
+  constructor(private auth: AuthService, private operation: OperationsService, private router: Router){}
+  username!: string
   blogContent!: BlogContent[]
-  userName = 'Awesome Person'
   imageUrl = '/assets/images/blog/blog6.png'
   randomImage = '/assets/images/blog/blog6.png'
   randomQuote = 'Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives'
 
   ngOnInit(){
+    if (!this.auth.isLogin) this.router.navigate(['/login'])
+    this.username = this.auth.getUsername(this.auth.username)
     this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
         const userPosts = data

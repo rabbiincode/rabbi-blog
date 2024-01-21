@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../../../services/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmailValidator, PasswordMatchValidator, PasswordPatternValidator } from '../../customValidation/custom-validation/custom-validation.component';
 
@@ -15,10 +16,10 @@ import { EmailValidator, PasswordMatchValidator, PasswordPatternValidator } from
 })
 
 export class RegisterComponent{
+  constructor(private auth: AuthService, private formBuilder: FormBuilder){}
   hide = true
   hide1 = true
   registerForm!: FormGroup
-  constructor(private formBuilder: FormBuilder){}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -34,5 +35,8 @@ export class RegisterComponent{
     return this.registerForm?.controls
   }
 
-  registerUser = () => {}
+  registerUser = () => {
+    this.auth.SignUp(this.registerForm.value.email, this.registerForm.value.password)
+  }
+  registerWithGoggle = () => this.auth.SignInWithGoggle()
 }

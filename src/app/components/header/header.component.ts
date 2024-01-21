@@ -17,14 +17,15 @@ import { ToggleDarkModeButtonComponent } from '../toggle-dark-mode-button/toggle
 
 export class HeaderComponent{
   open = false
-  login = false
   admin = false
   search = false
+  isLogin = false
   searchValue!: string
   constructor(private auth: AuthService, private router: Router){}
 
   ngOnInit() {
     this.admin = this.auth.isAdmin
+    this.isLogin = this.auth.isLogin
   }
 
   @HostListener('window:resize', ['$event'])
@@ -39,7 +40,7 @@ export class HeaderComponent{
   }
 
   searchInput = () => this.search = !this.search
-  authenticate = () => this.login ? '' : this.router.navigate(['/login'])
+  authenticate = () => this.isLogin ? this.auth.logOut() : this.router.navigate(['/login'])
 
   toggleSidebar = () => {
     this.open = !this.open

@@ -12,18 +12,17 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 
 export class SidebarComponent{
   constructor(private auth: AuthService, private router: Router){}
-  login = false
   admin = false
+  isLogin = false
   @Output() searchInput = new EventEmitter<boolean>()
   @Output() toggleSidebar = new EventEmitter<boolean>()
 
   ngOnInit() {
     this.admin = this.auth.isAdmin
+    this.isLogin = this.auth.isLogin
   }
 
   search = () => this.searchInput.emit(false)
   sidebarToggle = () => this.toggleSidebar.emit(false)
-  authenticate = () => {
-    this.login ? '' : this.router.navigate(['/login'])
-  }
+  authenticate = () => this.isLogin ? this.auth.logOut() : this.router.navigate(['/login'])
 }
