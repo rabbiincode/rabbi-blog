@@ -8,6 +8,7 @@
       <p class="publish">Published on - <span>{{content.publishedDate}}</span><small> by {{content.author}}</small></p>
       <p *ngIf="content.updatedDate" class="publish">updated on - <span>{{content.updatedDate}}</span></p>
     </div>
+    <p *ngIf="preview" class="category">Post Category - {{content.category}}</p>
     <div class="post">
       <h1 class="title">{{content.title}}</h1>
       <div *ngIf="preview" class="overview">{{content.overview}}</div>

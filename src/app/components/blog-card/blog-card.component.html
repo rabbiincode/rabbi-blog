@@ -1,12 +1,12 @@
 <div class="cards">
-  <div class="content">
+  <div *ngIf="currentBlogContent" class="content">
     <div *ngFor="let blog of currentBlogContent" class="card">
       <div class="text">
         <div class="image">
           <img [src]="blog.bannerUrl" alt="img" class="banner">
         </div>
         <h1 class="title">{{blog.title}}</h1>
-        <div class="overview">{{blog.overview}}</div>
+        <div class="overview">{{blog.overview}}...</div>
       </div>
       <div class="buttons">
         <button (click)="readPost(blog.postId)">Read</button>
@@ -21,4 +21,5 @@
     <mat-icon *ngIf="currentPage < totalPages" (click)="navigateForward()" class="icon arrow">chevron_right</mat-icon>
     <mat-icon *ngIf="totalPages == 1" class="arrow">chevron_right</mat-icon>
   </div>
+  <img *ngIf="loading" src="/assets/gif/loading.gif" alt="loading..." class="loader"/>
 </div>

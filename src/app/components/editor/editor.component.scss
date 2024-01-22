@@ -135,7 +135,7 @@ textarea::-webkit-scrollbar{
   min-height: 8rem !important;
 }
 
-.ql-editor::before{
+.ql-editor::before, .content > span{
   color: var(--text) !important;
   font-size: 1.2rem;
   font-weight: 600;

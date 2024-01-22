@@ -10,14 +10,29 @@
   </div>
   <button [routerLink]="'/user'" class="back"><mat-icon class="arrow">navigate_before</mat-icon>back</button>
 
+  <!-- styles in typography/dropdown.scss -->
+  <div class="dropdown-heading">
+    <div class="dropdown-title">Select Post Category</div>
+    <div (mouseleave)="show()" class="box">
+      <div class="categories">
+        <span class="dropdown-title1">category -</span>
+        <span (mouseenter)="show()" class="category">{{category}} <mat-icon class="arrow animate__animated animate__headShake animate__infinite">expand_more</mat-icon></span>
+      </div>
+      <div *ngIf="showOptions" class="dropdown-content">
+        <span *ngFor="let option of categories" (click)="select(option)" [ngClass]="option == category ? 'selected' : ''" class="category-list">{{option}}</span>
+      </div>
+    </div>
+  </div>
+
   <form [formGroup]="contentForm" class="content">
+    <span>Post Category - {{category}}</span>
     <textarea formControlName="title" type="text" placeholder="title..." class="text"></textarea>
     <div class="overview">
       <textarea formControlName="overview" type="text" placeholder="overview..." class="text text1"></textarea>
       <label>write a catchy and concise front cover overview</label>
     </div>
     <quill-editor formControlName="content" [modules]="quillConfig" placeholder="start writing..."></quill-editor>
-    <button [disabled]="!imageUrl || contentForm.invalid" (click)="preview()" class="preview">Preview</button>
+    <button [disabled]="!imageUrl || category == 'Select' || contentForm.invalid" (click)="preview()" class="preview">Preview</button>
   </form>
   <blog-footer></blog-footer>
 </div>

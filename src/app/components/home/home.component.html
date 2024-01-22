@@ -6,10 +6,22 @@
       <h1>Welcome to your personalized blogging oasis!</h1>
       <p>Whether you're eager to delve into the wonders of nature or itching to share your own stories, we've got the perfect space for you</p>
       <p>Unwind, explore, and deepen your understanding of the world around you. Your journey into knowledge begins here...</p>
-      <img src="/assets/images/down.png" alt="scroll down" (click)="scrollToBottom()" class="down animate__animated animate__headShake animate__infinite"/>
+      <img src="/assets/images/down.png" alt="scroll down" (click)="scrollToBottom()" class="down animate__animated animate__pulse animate__infinite"/>
     </div>
   </div>
-  <p class="latest">Latest Posts</p>
+  <!-- styles in typography/dropdown.scss -->
+  <div class="dropdown-heading">
+    <div class="dropdown-title">Latest Posts</div>
+    <div (mouseleave)="show()" class="box">
+      <div class="categories">
+        <span class="dropdown-title1">category -</span>
+        <span (mouseenter)="show()" class="category">{{category}} <mat-icon class="arrow animate__animated animate__headShake animate__infinite">expand_more</mat-icon></span>
+      </div>
+      <div *ngIf="showOptions" class="dropdown-content">
+        <span *ngFor="let option of categories" (click)="select(option)" [ngClass]="option == category ? 'selected' : ''" class="category-list">{{option}}</span>
+      </div>
+    </div>
+  </div>
   <blog-blog-card *ngIf="blogContent?.length !== 0" [blogContent]="blogContent"></blog-blog-card>
   <p *ngIf="blogContent?.length == 0" class="posts">Post(s) not found</p>
   <blog-footer></blog-footer>

@@ -1,8 +1,9 @@
 import { BlogContent } from '../interfaces/content';
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, Renderer2 } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { Component, Inject, Renderer2 } from '@angular/core';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
@@ -10,19 +11,37 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 @Component({
   selector: 'blog-home',
   standalone: true,
-  imports: [BlogCardComponent, HeaderComponent, FooterComponent, ScrollToTopComponent, CommonModule],
+  imports: [BlogCardComponent, HeaderComponent, FooterComponent, ScrollToTopComponent, CommonModule, MatIconModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 
 export class HomeComponent{
+  category = 'All'
   isShow!: boolean
+  showOptions = false
   blogContent!: BlogContent[]
+  categories = ['All', 'Nature', 'Technology', 'History']
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private operation: OperationsService){}
 
   ngOnInit() {
+    this.getPosts()
+  }
+
+  show = () => this.showOptions = !this.showOptions
+  select = (option: string) => {
+    this.category = option
+    this.getPosts()
+  }
+
+  getPosts = () => {
     this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
-      this.blogContent = data
+      if (this.category == 'All'){
+        this.blogContent = data
+      } else{
+        const categoryPost = data?.filter((post) => this.category == post.category)
+        this.blogContent = categoryPost
+      }
     })
   }
 

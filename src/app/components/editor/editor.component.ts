@@ -30,11 +30,14 @@ export class EditorComponent{
   username!: string
   formData!: object
   previewNow = false
-  contentForm!: FormGroup
+  showOptions = false
+  category = 'Select'
   publishedDate!: string
+  contentForm!: FormGroup
   previewContent!: BlogContent[]
   selectedImage: File | null = null
   imagePreview: string | null = null
+  categories = ['Nature', 'Technology', 'History']
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   ngOnInit() {
@@ -51,18 +54,21 @@ export class EditorComponent{
     this.postId = snapshot.queryParams['post']
 
     // Get post content the user want to edit
-    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
-      if (data){
-        const editContent = data
-        const editPost = editContent?.filter((post) => post.postId == this.postId)
-        let edit = editPost?.map((post) => ({image: post.bannerUrl, title: post.title, overview: post.overview, content: post.content, publishedDate: post.publishedDate}))
-        this.publishedDate = edit[0]?.publishedDate
+    if (!this.writePost){
+      this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+        if (data){
+          const editContent = data
+          const editPost = editContent?.filter((post) => post.postId == this.postId)
+          let edit = editPost?.map((post) => ({image: post.bannerUrl, title: post.title, overview: post.overview, content: post.content, category: post.category, publishedDate: post.publishedDate}))
 
-        // Prefill textarea's and image when editing posts
-        !this.writePost && this.contentForm.patchValue({title: edit[0]?.title, overview: edit[0]?.overview, content: edit[0]?.content})
-        this.imageUrl = edit[0]?.image
-      }
-    })
+          // Prefill textarea's, category and image when editing posts
+          this.imageUrl = edit[0]?.image
+          this.category = edit[0]?.category
+          this.publishedDate = edit[0]?.publishedDate
+          this.contentForm.patchValue({title: edit[0]?.title, overview: edit[0]?.overview, content: edit[0]?.content})
+        }
+      })
+    }
   }
 
   onImageSelected = (event: any): void => {
@@ -70,6 +76,9 @@ export class EditorComponent{
     // Using URL.createObjectURL to simplify image reading
     this.imageUrl  = URL.createObjectURL(event.target.files[0])
   }
+
+  show = () => this.showOptions = !this.showOptions
+  select = (option: string) => this.category = option
 
   getCurrentDate = () => {
     return `${this.date.getDate()}th ${this.months[this.date.getMonth()]} ${this.date.getFullYear()}`
@@ -79,7 +88,7 @@ export class EditorComponent{
     if (!this.imageUrl || this.contentForm.invalid) return
     // bannerUrl logic takes care of when post is edited but image is not changed, otherwise it returns empty to be stored in the image storage database first
     this.previewContent = [{
-      category: '', banner: this.selectedImage, bannerUrl: (!this.writePost && !this.selectedImage) ? this.imageUrl : '', title: this.contentForm.value.title, overview: this.contentForm.value.overview,
+      category: this.category, banner: this.selectedImage, bannerUrl: (!this.writePost && !this.selectedImage) ? this.imageUrl : '', title: this.contentForm.value.title, overview: this.contentForm.value.overview,
       content: this.contentForm.value.content, publishedDate: this.writePost ? this.getCurrentDate() : this.publishedDate, updatedDate: !this.writePost ? this.getCurrentDate() : '', author: this.username, postId: this.postId
     }]
     this.previewNow = true

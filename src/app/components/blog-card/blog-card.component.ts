@@ -22,6 +22,7 @@ export class BlogCardComponent{
   currentPage = 1
   dataPerPage = 8
   isLogin = false
+  loading = false
   username!: string
   indexOfLastItem!: any
   indexOfFirstItem!: any
@@ -35,6 +36,7 @@ export class BlogCardComponent{
   }
 
   ngOnInit() {
+    this.loading = true
     this.admin = this.auth.isAdmin
     this.isLogin = this.auth.isLogin
     this.username = this.auth.getUsername(this.auth.username)
@@ -47,6 +49,7 @@ export class BlogCardComponent{
     this.indexOfFirstItem = this.indexOfLastItem - this.dataPerPage
     this.totalPages = Math.ceil(this.blogContent.length / this.dataPerPage)
     this.currentBlogContent = this.blogContent?.slice(this.indexOfFirstItem, this.indexOfLastItem)
+    this.loading = false
   }
 
   renderPagination = () => {
