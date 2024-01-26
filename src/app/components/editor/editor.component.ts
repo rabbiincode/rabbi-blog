@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { MetaTagService } from '../../services/meta-tag.service';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,7 +23,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@ang
 })
 
 export class EditorComponent{
-  constructor(private auth: AuthService, private formBuilder: FormBuilder, private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
+  constructor(private auth: AuthService, private meta: MetaTagService, private formBuilder: FormBuilder, private operation: OperationsService, private route: ActivatedRoute, private router: Router){}
   postId!: string
   writePost = true
   imageUrl!: string
@@ -37,7 +38,7 @@ export class EditorComponent{
   previewContent!: BlogContent[]
   selectedImage: File | null = null
   imagePreview: string | null = null
-  categories = ['Nature', 'Technology', 'History']
+  categories = ['Nature', 'Tech', 'History']
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class EditorComponent{
     const snapshot: ActivatedRouteSnapshot = this.route.snapshot
     this.writePost = snapshot.queryParams['write'] == 'write-post'
     this.postId = snapshot.queryParams['post']
+    this.meta.updateTag('description', this.writePost ? 'Write Post' : 'Edit Post') // Update meta tag
 
     // Get post content the user want to edit
     if (!this.writePost){

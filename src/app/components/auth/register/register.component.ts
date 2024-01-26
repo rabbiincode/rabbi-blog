@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../services/auth.service';
+import { MetaTagService } from '../../../services/meta-tag.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmailValidator, PasswordMatchValidator, PasswordPatternValidator } from '../../customValidation/custom-validation/custom-validation.component';
 
@@ -16,13 +17,14 @@ import { EmailValidator, PasswordMatchValidator, PasswordPatternValidator } from
 })
 
 export class RegisterComponent{
-  constructor(private auth: AuthService, private formBuilder: FormBuilder){}
+  constructor(private auth: AuthService, private meta: MetaTagService, private formBuilder: FormBuilder){}
   hide = true
   hide1 = true
   loading = false
   registerForm!: FormGroup
 
   ngOnInit() {
+    this.meta.updateTag('description', 'User Registration') // Update meta tag
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, EmailValidator]],
       password: ['', [Validators.required, PasswordPatternValidator]],

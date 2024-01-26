@@ -4,6 +4,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { Component, Inject, Renderer2 } from '@angular/core';
+import { MetaTagService } from '../../services/meta-tag.service';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
@@ -21,11 +22,12 @@ export class HomeComponent{
   isShow!: boolean
   showOptions = false
   blogContent!: BlogContent[]
-  categories = ['All', 'Nature', 'Technology', 'History']
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private operation: OperationsService){}
+  categories = ['All', 'Nature', 'Tech', 'History']
+  constructor(@Inject(DOCUMENT) private document: Document, private meta: MetaTagService, private renderer: Renderer2, private operation: OperationsService){}
 
   ngOnInit() {
     this.getPosts()
+    this.meta.updateTag('description', 'Rabbi Blog') // Update meta tag
   }
 
   show = () => this.showOptions = !this.showOptions

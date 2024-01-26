@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { BlogContent, Quote } from '../interfaces/content';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { MetaTagService } from '../../services/meta-tag.service';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
@@ -19,7 +20,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 })
 
 export class DashboardComponent{
-  constructor(private auth: AuthService, private operation: OperationsService, private router: Router){}
+  constructor(private auth: AuthService, private meta: MetaTagService, private operation: OperationsService, private router: Router){}
   username!: string
   blogContent!: BlogContent[]
   imageUrl = '/assets/images/blog/blog6.png'
@@ -28,6 +29,7 @@ export class DashboardComponent{
 
   ngOnInit(){
     if (!this.auth.isLogin) this.router.navigate(['/login'])
+    this.meta.updateTag('description', 'User Dashboard') // Update meta tag
     this.username = this.auth.getUsername(this.auth.username)
     this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
@@ -49,8 +51,5 @@ export class DashboardComponent{
       if (imagePath?.length !== 0) this.randomImage = imagePath[Math.floor(Math.random() * imagePath?.length) + 1]
     })
   }
-
-  writePost = () => {
-    this.router.navigate(['/editor'], { queryParams: { write: 'write-post' } })
-  }
+  writePost = () => this.router.navigate(['/editor'], { queryParams: { write: 'write-post' } })
 }

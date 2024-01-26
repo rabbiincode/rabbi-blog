@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { MetaTagService } from '../../services/meta-tag.service';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -20,7 +21,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 })
 
 export class BlogComponent{
-  constructor(private activatedRoute: ActivatedRoute, private alert: AlertService, private operation: OperationsService, private router: Router){}
+  constructor(private activatedRoute: ActivatedRoute, private alert: AlertService, private meta: MetaTagService, private operation: OperationsService, private router: Router){}
   loading = false
   previewImageUrl!: string
   @Input() preview = false
@@ -52,19 +53,25 @@ export class BlogComponent{
   }
 
   getAllPost = (postId: string) => {
+    let readContent: BlogContent
     this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
         const moreContent = data
         const readPost = moreContent?.filter((post) => post.postId == postId)
         this.readContent = readPost
-
+        readPost.map(read => readContent = read) // Get readPost category
+        // Update meta tag
+        this.meta.setTitle(readContent.title)
+        this.meta.updateTag('description', readContent.overview)
         // Filter out the current blog from read more
         const readMore = moreContent?.filter((post) => post.postId !== postId)
-        this.readMoreContent = readMore
+        // Show related category post in read more
+        const relatedPosts = readMore?.filter((post) => post.category == readContent.category)
+        // If relatedPosts <= 2 show all readPosts else show related category posts
+        this.readMoreContent = relatedPosts.length <= 2 ? readMore : relatedPosts
       }
     })
   }
-
   goBack = () => this.back.emit(false)
 
   editPost = async () => {

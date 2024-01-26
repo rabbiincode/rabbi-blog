@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../services/auth.service';
+import { MetaTagService } from '../../../services/meta-tag.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmailValidator, PasswordPatternValidator } from '../../customValidation/custom-validation/custom-validation.component';
 
@@ -18,7 +19,7 @@ import { EmailValidator, PasswordPatternValidator } from '../../customValidation
 })
 
 export class LoginComponent{
-  constructor(private auth: AuthService, private cookieService: CookieService, private formBuilder: FormBuilder){}
+  constructor(private auth: AuthService, private meta: MetaTagService, private cookieService: CookieService, private formBuilder: FormBuilder){}
   hide = true
   loading = false
   cookieValue!: string
@@ -28,6 +29,7 @@ export class LoginComponent{
   cookieExpiration = new Date(this.currentDate)
 
   ngOnInit() {
+    this.meta.updateTag('description', 'User Login') // Update meta tag
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, EmailValidator]],
       password: ['', [Validators.required, PasswordPatternValidator]]

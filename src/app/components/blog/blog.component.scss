@@ -15,9 +15,9 @@
 .timestamp{
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
   align-items: center;
   justify-content: space-between;
+  gap: 0.7rem;
 }
 
 .publish{
@@ -64,7 +64,7 @@
 }
 
 .read{
-  padding: 2.5rem 1.5rem 0;
+  padding: 2.5rem 0 0;
 }
 
 .more{
@@ -72,6 +72,7 @@
   display: flex;
   align-items: center;
   font-size: 1.5rem;
+  padding: 0 1.5rem 0;
 }
 
 .buttons{

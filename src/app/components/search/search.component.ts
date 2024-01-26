@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { MetaTagService } from '../../services/meta-tag.service';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
@@ -25,7 +26,7 @@ export class SearchComponent{
   searchValue!: string
   blogContent!: BlogContent[]
 
-  constructor(private auth: AuthService, private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
+  constructor(private auth: AuthService, private meta: MetaTagService, private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
   ngOnInit() {
     this.admin = this.auth.isAdmin
     this.loading = true
@@ -34,6 +35,7 @@ export class SearchComponent{
       this.searchValue = params['query']
       this.getSearchResult(params['query'])
     })
+    this.meta.updateTag('description', `Search/${this.searchValue}`) // Update meta tag
   }
 
   getSearchResult = (value: string) => {

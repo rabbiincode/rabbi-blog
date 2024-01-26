@@ -5,6 +5,7 @@ import { CodeInputModule } from 'angular-code-input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { timer, take, map, Subject, Subscription } from 'rxjs';
+import { MetaTagService } from '../../../services/meta-tag.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmailValidator, PasswordMatchValidator, PasswordPatternValidator } from '../../customValidation/custom-validation/custom-validation.component';
 
@@ -28,9 +29,10 @@ export class ForgotPasswordComponent{
   recoveryForm!: FormGroup
   reset$ = new Subject<void>() // Create a Subject to signal when to reset the countdown
   countdownSubscription: Subscription | undefined
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private meta: MetaTagService, private formBuilder: FormBuilder){}
 
   ngOnInit() {
+    this.meta.updateTag('description', 'Recover Password') // Update meta tag
     this.recoveryForm = this.formBuilder.group({
       email: ['', [Validators.required, EmailValidator]]
     })

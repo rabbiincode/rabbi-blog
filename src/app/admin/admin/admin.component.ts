@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Quote } from '../../interfaces/content';
+import { Quote } from '../../components/interfaces/content';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { AlertService } from '../../../services/alert.service';
-import { HeaderComponent } from '../../header/header.component';
-import { FooterComponent } from '../../footer/footer.component';
-import { OperationsService } from '../../../services/operations.service';
-import { ScrollToTopComponent } from '../../scroll-to-top/scroll-to-top.component';
+import { AlertService } from '../../services/alert.service';
+import { HeaderComponent } from '../../components/header/header.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { MetaTagService } from '../../services/meta-tag.service';
+import { OperationsService } from '../../services/operations.service';
+import { ScrollToTopComponent } from '../../components/scroll-to-top/scroll-to-top.component';
 
 @Component({
   selector: 'blog-admin',
@@ -18,7 +19,7 @@ import { ScrollToTopComponent } from '../../scroll-to-top/scroll-to-top.componen
 })
 
 export class AdminComponent{
-  constructor(private alert: AlertService, private operation: OperationsService){}
+  constructor(private alert: AlertService, private meta: MetaTagService, private operation: OperationsService){}
   show = false
   edit = false
   quote!: string
@@ -31,6 +32,7 @@ export class AdminComponent{
   selectedImage!: File
 
   ngOnInit() {
+    this.meta.updateTag('description', 'Administrator') // Update meta tag
     this.operation.getAllQuote().subscribe((data: Quote[]) => {
       this.allQuotes = data
     })
