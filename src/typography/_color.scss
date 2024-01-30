@@ -7,6 +7,7 @@ body{
   --text: #000;
   --text1: #FFF;
   --text-hover: rgb(30, 30, 30);
+  --ripple: rgb(0, 0, 0, 0.1);
   --button-border: rgb(216, 218, 210);
   --upload: #ffa500;
   --publish: #5dba7f;
@@ -21,6 +22,7 @@ body.dark-theme{
   --text: #FFF;
   --text1: #000;
   --text-hover: rgb(225, 225, 225);
+  --ripple: rgb(255, 255, 255, 0.1);
   --button-border: rgb(44, 56, 57);
   --upload: #fed7aa;
   --publish: #86efac;

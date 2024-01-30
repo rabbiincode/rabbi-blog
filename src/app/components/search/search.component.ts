@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { MetaTagService } from '../../services/meta-tag.service';
-import { BlogCardComponent } from '../blog-card/blog-card.component';
+import { PostCardComponent } from '../post-card/post-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
@@ -14,7 +14,7 @@ import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/route
 @Component({
   selector: 'blog-search',
   standalone: true,
-  imports: [BlogCardComponent, FooterComponent, HeaderComponent, ScrollToTopComponent, CommonModule, MatIconModule, RouterModule, RouterLink],
+  imports: [FooterComponent, HeaderComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule, RouterModule, RouterLink],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
@@ -32,8 +32,8 @@ export class SearchComponent{
     this.loading = true
     // Subscribe to route change event and rerender component on route change
     this.activatedRoute.queryParams.subscribe(params => {
-      this.searchValue = params['query']
-      this.getSearchResult(params['query'])
+      this.searchValue = params['q']
+      this.getSearchResult(params['q'])
     })
     this.meta.updateTag('description', `Search/${this.searchValue}`) // Update meta tag
   }

@@ -1,0 +1,174 @@
+.comments{
+  position: fixed;
+  height: 100vh;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+}
+
+.transparent{
+  width: 100%;
+  background: var(--sidebar-transparent);
+  cursor: pointer;
+}
+
+.content{
+  position: relative;
+  min-width: 36rem;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  font-size: 1.3rem;
+  line-height: 1.62rem;
+  letter-spacing: -0.09px;
+  overflow-y: auto;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.header{
+  position: sticky;
+  background: var(--sidebar-bg);
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+
+mat-icon{
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.header > span{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.content > p{
+  color: red;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-style: italic;
+  opacity: 0.5;
+  margin-top: 10rem;
+}
+
+textarea{
+  width: 100%;
+  background: transparent;
+  font-size: 1.2rem;
+  border: 0.0625rem solid var(--button-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+textarea::placeholder{
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+textarea::-webkit-scrollbar{
+  display: none;
+}
+
+.buttons{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+button{
+  background: var(--publish);
+  color: #000;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.btn1{
+  background: #fee2e2;
+}
+
+.comment{
+  max-width: 36rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.data{
+  font-size: 1.2rem;
+  border-bottom: 0.0625rem solid var(--button-border);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.icons{
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.mat{
+  display: flex;
+}
+
+.mat1{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mat > mat-icon{
+  font-size: 1rem;
+}
+
+.mat > span{
+  opacity: 0.5;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 0.8rem;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+@media (min-width: 600px){
+  .comment{
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 600px){
+  .comments{
+    flex-direction: column;
+  }
+  .content{
+    min-width: 100%;
+    height: 50vh;
+  }
+  .transparent{
+    height: 50vh;
+  }
+  .content > p{
+    margin-top: 5rem;
+  }
+  .comment{
+    max-width: 100%;
+  }
+  .footer{
+    display: none;
+  }
+}

@@ -68,8 +68,7 @@ h1, h2, h3, h4, h5, h6{
 
 /* width */
 ::-webkit-scrollbar{
-  width: 10px;
-  height: 4px;
+  width: 0.625rem;
 }
 
 /* Track */
@@ -80,7 +79,6 @@ h1, h2, h3, h4, h5, h6{
 /* Handle */
 ::-webkit-scrollbar-thumb{
   background: var(--text);
-  border-radius: 0.6rem;
 }
 
 /* Handle on hover */
@@ -113,6 +111,7 @@ h1, h2, h3, h4, h5, h6{
   mat-icon.arrow{
     width: 0.8rem;
     height: 0.8rem;
+    font-size: 0.8rem;
   }
 }
 

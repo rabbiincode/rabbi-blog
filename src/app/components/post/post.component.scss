@@ -68,6 +68,28 @@
   text-align: center;
 }
 
+.icons{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mat{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mat > mat-icon, .icons > mat-icon{
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.mat > span{
+  opacity: 0.5;
+}
+
 .read{
   padding: 2.5rem 0 0;
 }

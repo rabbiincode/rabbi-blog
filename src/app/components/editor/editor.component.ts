@@ -1,7 +1,7 @@
 import { QuillModule } from 'ngx-quill';
 import { CommonModule } from '@angular/common';
 import { BlogContent } from '../../interfaces/content';
-import { BlogComponent } from '../blog/blog.component';
+import { PostComponent } from '../post/post.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { PostCategories } from '../../interfaces/categories';
@@ -9,7 +9,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { MetaTagService } from '../../services/meta-tag.service';
-import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@angular/router';
@@ -17,7 +16,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterLink } from '@ang
 @Component({
   selector: 'blog-editor',
   standalone: true,
-  imports: [BlogComponent, BlogCardComponent, FooterComponent, HeaderComponent, CommonModule, MatIconModule, QuillModule, ReactiveFormsModule, RouterLink],
+  imports: [FooterComponent, HeaderComponent, PostComponent, CommonModule, MatIconModule, QuillModule, ReactiveFormsModule, RouterLink],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss',
   encapsulation: ViewEncapsulation.None

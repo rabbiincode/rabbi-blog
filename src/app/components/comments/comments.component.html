@@ -1,0 +1,35 @@
+<div class="comments">
+  <div class="transparent" (click)="commentToggle()"></div>
+  <div class="content">
+    <div class="header">
+      <span>Comments</span>
+      <mat-icon (click)="commentToggle()" class="icon">close</mat-icon>
+    </div>
+    <form>
+      <textarea name="comment" type="text" placeholder="Leave your comments..." rows="5" [(ngModel)]="comment"></textarea>
+      <div *ngIf="comment" class="buttons">
+        <button (click)="cancelComment()" class="btn1">Cancel</button>
+        <button (click)="postComment()">Comment</button>
+      </div>
+    </form>
+    <p *ngIf="comments?.length == 0">No comment on this post yet...be the first to comment</p>
+    <ng-container *ngIf="comments?.length !== 0">
+      <div class="comment">
+        <div *ngFor="let data of comments">
+          <div class="data">{{data.comment}}</div>
+          <div class="icons">
+            <div class="mat">
+              <mat-icon (click)="likeComment(data.id)" [color]="likedComment.includes(data.id) && 'accent'" matRipple [matRippleCentered]="true" [matRippleRadius]="15" matRippleColor="var(--ripple)" aria-hidden="false">thumb_up</mat-icon>
+              <span>{{data.likedCommentCount}}</span>
+            </div>
+            <div class="mat mat1">
+              <span>{{data.dislikedCommentCount}}</span>
+              <mat-icon (click)="disLikeComment(data.id)" [color]="dislikedComment.includes(data.id) && 'warn'" matRipple [matRippleCentered]="true" [matRippleRadius]="15" matRippleColor="var(--ripple)" aria-hidden="false">thumb_down</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <span class="footer">rabbi</span>
+  </div>
+</div>

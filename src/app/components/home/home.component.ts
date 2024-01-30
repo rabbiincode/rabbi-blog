@@ -6,14 +6,14 @@ import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { Component, Inject, Renderer2 } from '@angular/core';
 import { MetaTagService } from '../../services/meta-tag.service';
-import { BlogCardComponent } from '../blog-card/blog-card.component';
+import { PostCardComponent } from '../post-card/post-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 
 @Component({
   selector: 'blog-home',
   standalone: true,
-  imports: [BlogCardComponent, HeaderComponent, FooterComponent, ScrollToTopComponent, CommonModule, MatIconModule],
+  imports: [HeaderComponent, FooterComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

@@ -8,14 +8,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AlertService } from '../../services/alert.service';
 
 @Component({
-  selector: 'blog-blog-card',
+  selector: 'blog-post-card',
   standalone: true,
   imports: [CommonModule, MatDialogModule, MatIconModule, RouterModule],
-  templateUrl: './blog-card.component.html',
-  styleUrl: './blog-card.component.scss'
+  templateUrl: './post-card.component.html',
+  styleUrl: './post-card.component.scss'
 })
 
-export class BlogCardComponent{
+export class PostCardComponent{
   constructor(private alert: AlertService, private auth: AuthService,  private router: Router){}
   admin = false
   totalPages = 1
@@ -72,12 +72,8 @@ export class BlogCardComponent{
   }
 
   // CRUD functions
-  readPost = (postId: string) => {
-    this.router.navigate(['/blog'], { queryParams: { read: postId } })
-  }
-  editPost = (postId: string) => {
-    this.router.navigate(['/editor'], { queryParams: { write: 'edit-post', post: postId } })
-  }
+  readPost = (postId: string) => this.router.navigate(['/post'], { queryParams: { r: postId } })
+  editPost = (postId: string) => this.router.navigate(['/editor'], { queryParams: { write: 'edit-post', post: postId } })
   deletePost = (postId: string) => {
     this.alert.getPostId(postId)
     this.alert.openDeleteDialog('0ms', '0ms')

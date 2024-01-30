@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin/admin.component';
-import { BlogComponent } from './components/blog/blog.component';
 import { HomeComponent } from './components/home/home.component';
+import { PostComponent } from './components/post/post.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -14,7 +14,7 @@ import { ForgotPasswordComponent } from './components/auth/forgot-password/forgo
 export const routes: Routes = [
   { path: '', title: 'Rabbi Blog - Your journey into knowledge begins here', component: HomeComponent },
   { path: 'login', title: 'Login', component: LoginComponent },
-  { path: 'blog', title: 'Content', component: BlogComponent },
+  { path: 'post', title: 'Content', component: PostComponent },
   { path: 'user', title: 'User', component: DashboardComponent },
   { path: 'editor', title: 'Editor', component: EditorComponent },
   { path: 'search', title: 'Search', component: SearchComponent },

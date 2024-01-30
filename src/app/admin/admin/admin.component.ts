@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { Quote } from '../../interfaces/content';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
-import { HeaderComponent } from '../../components/header/header.component';
-import { FooterComponent } from '../../components/footer/footer.component';
 import { MetaTagService } from '../../services/meta-tag.service';
 import { OperationsService } from '../../services/operations.service';
+import { HeaderComponent } from '../../components/header/header.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 import { ScrollToTopComponent } from '../../components/scroll-to-top/scroll-to-top.component';
 
 @Component({

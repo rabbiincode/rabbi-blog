@@ -7,14 +7,14 @@ import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { BlogContent, Quote } from '../../interfaces/content';
 import { MetaTagService } from '../../services/meta-tag.service';
-import { BlogCardComponent } from '../blog-card/blog-card.component';
+import { PostCardComponent } from '../post-card/post-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 
 @Component({
   selector: 'blog-dashboard',
   standalone: true,
-  imports: [BlogCardComponent, FooterComponent, HeaderComponent, ScrollToTopComponent, CommonModule, MatIconModule, RouterLink],
+  imports: [FooterComponent, HeaderComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

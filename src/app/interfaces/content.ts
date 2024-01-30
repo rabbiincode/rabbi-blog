@@ -11,7 +11,14 @@ export interface BlogContent{
   updatedDate: string,
 }
 
+export interface Comments{
+  id: string,
+  comment: string,
+  likedCommentCount: number,
+  dislikedCommentCount: number
+}
+
 export interface Quote{
   quote: string,
-  quoteId: string;
+  quoteId: string
 }
