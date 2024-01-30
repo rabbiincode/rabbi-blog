@@ -16,12 +16,12 @@
         <blog-html-to-text [htmlContent]="content.content"></blog-html-to-text>
         <div *ngIf="!preview" class="icons">
           <div class="mat">
-            <mat-icon (click)="like()" [color]="liked && 'accent'" matRipple [matRippleCentered]="true" [matRippleRadius]="25" matRippleColor="var(--ripple)" aria-hidden="false">thumb_up</mat-icon>
+            <mat-icon (click)="like()" [color]="liked && 'accent'" aria-hidden="false">thumb_up</mat-icon>
             <span>{{likeCount}}</span>
           </div>
           <div class="mat">
             <span *ngIf="isLogin || isLogin && username == content.author">{{dislikeCount}}</span>
-            <mat-icon (click)="disLike()" [color]="disliked && 'warn'" matRipple [matRippleCentered]="true" [matRippleRadius]="25" matRippleColor="var(--ripple)" aria-hidden="false">thumb_down</mat-icon>
+            <mat-icon (click)="disLike()" [color]="disliked && 'warn'" aria-hidden="false">thumb_down</mat-icon>
           </div>
           <mat-icon (click)="toggleComment()">comment</mat-icon>
         </div>
@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-      <blog-post-card *ngIf="readMoreContent?.length !== 0" [blogContent]="readMoreContent"></blog-post-card>
+      <blog-post-card *ngIf="readMoreContent?.length !== 0" [postContent]="readMoreContent"></blog-post-card>
       <p *ngIf="readMoreContent?.length == 0" class="posts">Post(s) not found</p>
     </div>
 
@@ -54,6 +54,6 @@
     <blog-footer></blog-footer>
     <blog-scroll-to-top></blog-scroll-to-top>
   </div>
-  <blog-comments *ngIf="!preview && comment" (toggleComment)="toggleComment()"></blog-comments>
+  <blog-comments *ngIf="!preview && comment" [postId]="postId" [isLogin]="isLogin" [username]="username" (toggleComment)="toggleComment()"></blog-comments>
   <img *ngIf="fetchingData" src="/assets/gif/loading.gif" alt="loading..." class="loader"/>
 </div>

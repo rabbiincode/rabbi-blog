@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { BlogContent } from '../../interfaces/content';
+import { PostContent } from '../../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -26,8 +26,8 @@ export class PostCardComponent{
   username!: string
   indexOfLastItem!: any
   indexOfFirstItem!: any
-  currentBlogContent!: BlogContent[]
-  @Input() blogContent!: BlogContent[]
+  currentPostContent!: PostContent[]
+  @Input() postContent!: PostContent[]
 
   // Page pagination
   ngOnChanges() {
@@ -44,11 +44,11 @@ export class PostCardComponent{
   }
 
   updatePagination = () => {
-    if (!Array.isArray(this.blogContent)) return
+    if (!Array.isArray(this.postContent)) return
     this.indexOfLastItem = this.currentPage * this.dataPerPage
     this.indexOfFirstItem = this.indexOfLastItem - this.dataPerPage
-    this.totalPages = Math.ceil(this.blogContent.length / this.dataPerPage)
-    this.currentBlogContent = this.blogContent?.slice(this.indexOfFirstItem, this.indexOfLastItem)
+    this.totalPages = Math.ceil(this.postContent.length / this.dataPerPage)
+    this.currentPostContent = this.postContent?.slice(this.indexOfFirstItem, this.indexOfLastItem)
     this.loading = false
   }
 

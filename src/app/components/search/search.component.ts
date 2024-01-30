@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlogContent } from '../../interfaces/content';
+import { PostContent } from '../../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../header/header.component';
@@ -24,7 +24,7 @@ export class SearchComponent{
   result = false
   loading = false
   searchValue!: string
-  blogContent!: BlogContent[]
+  postContent!: PostContent[]
 
   constructor(private auth: AuthService, private meta: MetaTagService, private operation: OperationsService, private activatedRoute: ActivatedRoute, private router: Router){}
   ngOnInit() {
@@ -39,12 +39,12 @@ export class SearchComponent{
   }
 
   getSearchResult = (value: string) => {
-    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: PostContent[]) => {
       const searchContent = data
       const searchResult = searchContent?.filter((search) => search?.title?.toLowerCase().includes(value?.toLowerCase()) || search?.overview?.toLowerCase().includes(value?.toLowerCase()))
       searchResult?.length == 0 ? this.result = false : this.result = true
       this.loading = false
-      this.blogContent = searchResult
+      this.postContent = searchResult
     }, () => {
       // Operation Failed
       this.loading = false

@@ -1,6 +1,6 @@
 import { QuillModule } from 'ngx-quill';
 import { CommonModule } from '@angular/common';
-import { BlogContent } from '../../interfaces/content';
+import { PostContent } from '../../interfaces/content';
 import { PostComponent } from '../post/post.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
@@ -36,7 +36,7 @@ export class EditorComponent{
   publishedDate!: string
   contentForm!: FormGroup
   categories = PostCategories
-  previewContent!: BlogContent[]
+  previewContent!: PostContent[]
   selectedImage: File | null = null
   imagePreview: string | null = null
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -57,7 +57,7 @@ export class EditorComponent{
 
     // Get post content the user want to edit
     if (!this.writePost){
-      this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+      this.operation.getAllPosts().subscribe((data: PostContent[]) => {
         if (data){
           const editContent = data
           const editPost = editContent?.filter((post) => post.postId == this.postId)

@@ -2,8 +2,8 @@
   <blog-header></blog-header>
   <div class="all-posts">
     <p class="all">All Posts</p>
-    <blog-post-card *ngIf="blogContent?.length !== 0" [blogContent]="blogContent"></blog-post-card>
-    <p *ngIf="blogContent?.length == 0" class="posts">Post(s) not found</p>
+    <blog-post-card *ngIf="postContent?.length !== 0" [postContent]="postContent"></blog-post-card>
+    <p *ngIf="postContent?.length == 0" class="posts">Post(s) not found</p>
   </div>
   <blog-footer></blog-footer>
   <blog-scroll-to-top></blog-scroll-to-top>

@@ -17,14 +17,18 @@
       <div class="comment">
         <div *ngFor="let data of comments">
           <div class="data">{{data.comment}}</div>
-          <div class="icons">
-            <div class="mat">
-              <mat-icon (click)="likeComment(data.id)" [color]="likedComment.includes(data.id) && 'accent'" matRipple [matRippleCentered]="true" [matRippleRadius]="15" matRippleColor="var(--ripple)" aria-hidden="false">thumb_up</mat-icon>
-              <span>{{data.likedCommentCount}}</span>
-            </div>
-            <div class="mat mat1">
-              <span>{{data.dislikedCommentCount}}</span>
-              <mat-icon (click)="disLikeComment(data.id)" [color]="dislikedComment.includes(data.id) && 'warn'" matRipple [matRippleCentered]="true" [matRippleRadius]="15" matRippleColor="var(--ripple)" aria-hidden="false">thumb_down</mat-icon>
+          <div class="desc">
+            <span >{{data.author}}</span>
+            <div class="icons">
+              <div class="mat">
+                <mat-icon (click)="likeComment(data.commentId)" [color]="isLogin ? data.liked.includes(username) && 'accent' : likedComment.includes(data.commentId) && 'accent'" aria-hidden="false">thumb_up</mat-icon>
+                <span>{{data.likedCommentCount}}</span>
+              </div>
+              <div class="mat">
+                <span>{{data.dislikedCommentCount}}</span>
+                <mat-icon (click)="disLikeComment(data.commentId)" [color]="isLogin ? data.disliked.includes(username) && 'accent' : dislikedComment.includes(data.commentId) && 'warn'" aria-hidden="false">thumb_down</mat-icon>
+              </div>
+              <mat-icon *ngIf="data.author == username" (click)="deleteComment(data.commentId)" color="warn" aria-hidden="false">delete</mat-icon>
             </div>
           </div>
         </div>

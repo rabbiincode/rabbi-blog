@@ -1,6 +1,6 @@
 <div class="cards animate__animated animate__fadeIn animate__slower">
-  <div *ngIf="currentBlogContent" class="content">
-    <div *ngFor="let blog of currentBlogContent" class="card">
+  <div *ngIf="currentPostContent" class="content">
+    <div *ngFor="let blog of currentPostContent" class="card">
       <div class="text">
         <div class="image">
           <img [src]="blog.bannerUrl" alt="img" (click)="readPost(blog.postId)" class="banner">
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="currentBlogContent" class="paginate">
+  <div *ngIf="currentPostContent" class="paginate">
     <mat-icon *ngIf="currentPage > 1" (click)="navigateBack()" class="icon arrow">chevron_left</mat-icon>
     <span *ngFor="let page of renderPagination()" (click)="handlePageNavigation(page)" [ngClass]="page == currentPage ? 'active' : ''">{{page}}</span>
     <mat-icon *ngIf="currentPage < totalPages" (click)="navigateForward()" class="icon arrow">chevron_right</mat-icon>

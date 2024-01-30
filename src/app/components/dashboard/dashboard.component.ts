@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
-import { BlogContent, Quote } from '../../interfaces/content';
+import { Quote, PostContent } from '../../interfaces/content';
 import { MetaTagService } from '../../services/meta-tag.service';
 import { PostCardComponent } from '../post-card/post-card.component';
 import { OperationsService } from '../../services/operations.service';
@@ -24,7 +24,7 @@ export class DashboardComponent{
   username!: string
   randomQuote!: string
   randomImage!: string
-  blogContent!: BlogContent[]
+  postContent!: PostContent[]
   imageUrl = '/assets/images/blog/blog6.png'
   quote = 'Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives'
 
@@ -32,11 +32,11 @@ export class DashboardComponent{
     if (!this.auth.isLogin) this.router.navigate(['/login'])
     this.meta.updateTag('description', 'User Dashboard') // Update meta tag
     this.username = this.auth.getUsername(this.auth.username)
-    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: PostContent[]) => {
       if (data){
         const userPosts = data
         const publishedPost = userPosts?.filter((post) => this.username == post.author)
-        this.blogContent = publishedPost
+        this.postContent = publishedPost
       }
     })
     this.operation.getAllQuote().subscribe((data: Quote[]) => {

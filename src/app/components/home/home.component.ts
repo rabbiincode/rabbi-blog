@@ -1,4 +1,4 @@
-import { BlogContent } from '../../interfaces/content';
+import { PostContent } from '../../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { Categories } from '../../interfaces/categories';
 import { CommonModule, DOCUMENT } from '@angular/common';
@@ -23,7 +23,7 @@ export class HomeComponent{
   isShow!: boolean
   showOptions = false
   categories = Categories
-  blogContent!: BlogContent[]
+  postContent!: PostContent[]
   constructor(@Inject(DOCUMENT) private document: Document, private meta: MetaTagService, private renderer: Renderer2, private operation: OperationsService){}
 
   ngOnInit() {
@@ -38,19 +38,19 @@ export class HomeComponent{
   }
 
   getPosts = () => {
-    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: PostContent[]) => {
       if (this.category == 'All'){
-        this.blogContent = data
+        this.postContent = data
       } else{
         const categoryPost = data?.filter((post) => this.category == post.category)
-        this.blogContent = categoryPost
+        this.postContent = categoryPost
       }
     })
   }
 
   scrollToBottom = () => {
     window.scroll({
-      top: 500,
+      top: 700,
       left: 0,
       behavior: 'smooth'
     })

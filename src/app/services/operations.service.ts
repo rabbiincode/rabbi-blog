@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BlogContent } from '../interfaces/content';
+import { PostContent, Comments } from '../interfaces/content';
 import { Observable, forkJoin, from, map, mergeMap } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDoc, getDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDoc, getDoc, query, where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDo
 export class OperationsService{
   quoteRef = collection(this.firestore, 'quote')
   contentRef = collection(this.firestore, 'posts')
+  commentRef = collection(this.firestore, 'comments')
   constructor(private firestore: Firestore, private storage: AngularFireStorage){}
 
   getAllPosts = (): Observable<any[]> => {
@@ -22,8 +23,8 @@ export class OperationsService{
     return await getDoc(getRef)
   }
 
-  createPost = async (blogContent: BlogContent) => {
-    const newDocRef = await addDoc(this.contentRef, { ...blogContent, banner: '', postId: '' })
+  createPost = async (postContent: PostContent) => {
+    const newDocRef = await addDoc(this.contentRef, { ...postContent, banner: '', postId: '', likeCount: 0, dislikeCount: 0, liked: [], disliked: [] })
     return await updateDoc(newDocRef, { postId: newDocRef.id })
   }
 
@@ -53,6 +54,25 @@ export class OperationsService{
 
   deleteQuote = async (quoteId: string) => {
     const deleteDocRef = doc(this.quoteRef, quoteId)
+    return await deleteDoc(deleteDocRef)
+  }
+
+  getAllComments = (): Observable<any[]> => {
+    return collectionData(this.commentRef)
+  }
+
+  createComment = async (comment: Comments) => {
+    const newDocRef = await addDoc(this.commentRef, comment)
+    return await updateDoc(newDocRef, { commentId: newDocRef.id })
+  }
+
+  updateComment = async (commentId: string, value: any): Promise<void> => {
+    const updateDocRef = doc(this.commentRef, commentId)
+    return await updateDoc(updateDocRef, value)
+  }
+
+  deleteComment = async (commentId: string) => {
+    const deleteDocRef = doc(this.commentRef, commentId)
     return await deleteDoc(deleteDocRef)
   }
 

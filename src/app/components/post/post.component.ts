@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { BlogContent } from '../../interfaces/content';
+import { PostContent } from '../../interfaces/content';
 import { Categories } from '../../interfaces/categories';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatRippleModule } from '@angular/material/core';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
 import { FooterComponent } from '../footer/footer.component';
@@ -19,7 +18,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 @Component({
   selector: 'blog-post',
   standalone: true,
-  imports: [CommentsComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule, MatRippleModule],
+  imports: [CommentsComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
@@ -37,15 +36,17 @@ export class PostComponent{
   disliked = false
   username!: string
   showOptions = false
+  allLiked!: string[]
   fetchingData = false
+  allDisliked!: string[]
   categories = Categories
   previewImageUrl!: string
   @Input() preview = false
   @Input() writePost = true
-  previewData!:BlogContent[]
-  readContent!: BlogContent[]
-  readMoreContent!: BlogContent[]
-  @Input() previewContent!: BlogContent[]
+  readContent!: PostContent[]
+  previewData!: PostContent[]
+  readMoreContent!: PostContent[]
+  @Input() previewContent!: PostContent[]
   @Output() back = new EventEmitter<boolean>()
 
   ngOnInit() {
@@ -80,14 +81,23 @@ export class PostComponent{
   }
 
   getAllPost = (postId: string) => {
-    let content: BlogContent
-    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+    let content: PostContent
+    this.operation.getAllPosts().subscribe((data: PostContent[]) => {
       if (data){
         const moreContent = data
         const readPost = moreContent?.filter((post) => post.postId == postId)
         this.readContent = readPost
         readPost.map(read => content = read) // Get readPost category
         this.category = content?.category
+        // Update like and dislike count
+        if(content.likeCount) this.likeCount = content?.likeCount
+        if(content.dislikeCount) this.dislikeCount = content?.dislikeCount
+        if(this.isLogin && content.liked) this.allLiked = content.liked
+        if(this.isLogin && content.disliked) this.allDisliked = content.disliked
+        if (this.isLogin){
+          this.liked = this.allLiked?.includes(this.username)
+          this.disliked = this.allDisliked?.includes(this.username)
+        }
         // Update meta tag
         this.meta.setTitle(content?.title)
         this.meta.updateTag('description', content?.overview)
@@ -108,7 +118,7 @@ export class PostComponent{
   }
 
   getCategoryPosts = (postCategory: string) => {
-    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+    this.operation.getAllPosts().subscribe((data: PostContent[]) => {
       if (postCategory == 'All'){
         // Filter out the current blog from read more
         const readMore = data?.filter((post) => post.postId !== this.postId)
@@ -166,21 +176,35 @@ export class PostComponent{
   }
 
   like = () => {
+    const index = this.allLiked?.indexOf(this.username)
     if (this.disliked){
       this.dislikeCount -= 1
       this.disliked = !this.disliked
+      this.allDisliked?.splice(index, 1)
+      this.operation.updatePost(this.postId, { dislikeCount: this.dislikeCount })
+      this.isLogin && this.operation.updatePost(this.postId, { disliked: this.allDisliked})
     }
     this.liked ? this.likeCount -= 1 : this.likeCount += 1
+    this.liked ? this.allLiked?.splice(index, 1) : this.allLiked?.push(this.username)
     this.liked = !this.liked
+    this.operation.updatePost(this.postId, { likeCount: this.likeCount })
+    this.isLogin && this.operation.updatePost(this.postId, { liked: this.allLiked })
   }
 
   disLike = () => {
+    const index = this.allLiked?.indexOf(this.username)
     if (this.liked){
       this.likeCount -= 1
       this.liked = !this.liked
+      this.allLiked?.splice(index, 1)
+      this.operation.updatePost(this.postId, { likeCount: this.likeCount })
+      this.isLogin && this.operation.updatePost(this.postId, { liked: this.allLiked })
     }
     this.disliked ? this.dislikeCount -= 1 : this.dislikeCount += 1
+    this.disliked ? this.allDisliked?.splice(index, 1) : this.allDisliked?.push(this.username)
     this.disliked = !this.disliked
+    this.operation.updatePost(this.postId, { dislikeCount: this.dislikeCount })
+    this.isLogin && this.operation.updatePost(this.postId, { disliked: this.allDisliked })
   }
   successAlert = () => this.alert.openSuccessDialog('0ms', '0ms')
   failAlert = () => this.alert.openFailDialog('0ms', '0ms')
