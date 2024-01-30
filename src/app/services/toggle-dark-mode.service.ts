@@ -1,30 +1,34 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ToggleDarkModeService{
-  colorMode = 'false'
+  private darkModeSubject = new BehaviorSubject<string>('true')
+  public darkMode$: Observable<string> = this.darkModeSubject.asObservable()
+
   setColorMode = () => {
     if (typeof window !== 'undefined'){
-      if (!localStorage.getItem('colorMode')){
-        const deviceMode = window.matchMedia('(prefers-color-scheme)').matches
-        localStorage.setItem('colorMode', `${deviceMode}`)
-        let mode = localStorage.getItem('colorMode')
-        this.colorMode = mode ? mode : 'false'
+      if (!localStorage.getItem('darkMode')){
+        const deviceMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+        localStorage.setItem('darkMode', `${deviceMode}`)
+        let mode = localStorage.getItem('darkMode')
+        this.darkModeSubject.next(mode ? mode : 'true')
       }
-      let mode = localStorage.getItem('colorMode')
-      this.colorMode = mode ? mode : 'false'
-      mode == 'true' ? document.body.classList.toggle('light-theme') : document.body.classList.toggle('dark-theme')
+      let mode = localStorage.getItem('darkMode')
+      this.darkModeSubject.next(mode ? mode : 'true')
+      mode == 'true' ? document.body.classList.toggle('dark-theme') : document.body.classList.toggle('light-theme')
     }
   }
 
   toggleDarkMode = () => {
     if (typeof window !== 'undefined'){
-      this.colorMode = this.colorMode == 'true' ? this.colorMode = 'false' : this.colorMode = 'true' 
+      const newMode = !(this.darkModeSubject.value == 'true')
+      this.darkModeSubject.next(newMode.toString())
       document.body.classList.toggle('dark-theme')
-      localStorage.setItem('colorMode', this.colorMode)
+      localStorage.setItem('darkMode', newMode.toString())
     }
   }
 }

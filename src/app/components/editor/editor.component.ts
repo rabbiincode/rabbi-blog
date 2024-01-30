@@ -1,9 +1,10 @@
 import { QuillModule } from 'ngx-quill';
 import { CommonModule } from '@angular/common';
-import { BlogContent } from '../interfaces/content';
+import { BlogContent } from '../../interfaces/content';
 import { BlogComponent } from '../blog/blog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
+import { PostCategories } from '../../interfaces/categories';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
@@ -35,10 +36,10 @@ export class EditorComponent{
   category = 'Select'
   publishedDate!: string
   contentForm!: FormGroup
+  categories = PostCategories
   previewContent!: BlogContent[]
   selectedImage: File | null = null
   imagePreview: string | null = null
-  categories = ['Nature', 'Tech', 'History']
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   ngOnInit() {

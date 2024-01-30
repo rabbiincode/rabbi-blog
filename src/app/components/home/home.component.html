@@ -12,11 +12,8 @@
   <!-- styles in typography/dropdown.scss -->
   <div class="dropdown-heading">
     <div class="dropdown-title">Latest Posts</div>
-    <div (mouseleave)="show()" class="box">
-      <div class="categories">
-        <span class="dropdown-title1">category -</span>
-        <span (mouseenter)="show()" class="category">{{category}} <mat-icon class="arrow animate__animated animate__headShake animate__infinite">expand_more</mat-icon></span>
-      </div>
+    <div (mouseleave)="show()" class="dropdown-box">
+      <span (mouseenter)="show()" class="dropdown-category">{{category}} <mat-icon class="arrow animate__animated animate__headShake animate__infinite">expand_more</mat-icon></span>
       <div *ngIf="showOptions" class="dropdown-content">
         <span *ngFor="let option of categories" (click)="select(option)" [ngClass]="option == category ? 'selected' : ''" class="category-list">{{option}}</span>
       </div>

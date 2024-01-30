@@ -14,7 +14,7 @@ export class AlertService{
       width: 'fit-content',
       height: 'fit-content',
       enterAnimationDuration,
-      exitAnimationDuration,
+      exitAnimationDuration
     })
   }
 
@@ -23,7 +23,7 @@ export class AlertService{
       width: 'fit-content',
       height: 'fit-content',
       enterAnimationDuration,
-      exitAnimationDuration,
+      exitAnimationDuration
     })
   }
 
@@ -32,7 +32,7 @@ export class AlertService{
       width: 'fit-content',
       height: 'fit-content',
       enterAnimationDuration,
-      exitAnimationDuration,
+      exitAnimationDuration
     })
   }
 

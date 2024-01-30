@@ -1,5 +1,6 @@
-import { BlogContent } from '../interfaces/content';
+import { BlogContent } from '../../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
+import { Categories } from '../../interfaces/categories';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
@@ -21,8 +22,8 @@ export class HomeComponent{
   category = 'All'
   isShow!: boolean
   showOptions = false
+  categories = Categories
   blogContent!: BlogContent[]
-  categories = ['All', 'Nature', 'Tech', 'History']
   constructor(@Inject(DOCUMENT) private document: Document, private meta: MetaTagService, private renderer: Renderer2, private operation: OperationsService){}
 
   ngOnInit() {

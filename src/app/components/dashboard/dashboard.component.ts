@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
-import { BlogContent, Quote } from '../interfaces/content';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { BlogContent, Quote } from '../../interfaces/content';
 import { MetaTagService } from '../../services/meta-tag.service';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { OperationsService } from '../../services/operations.service';
@@ -22,10 +22,11 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 export class DashboardComponent{
   constructor(private auth: AuthService, private meta: MetaTagService, private operation: OperationsService, private router: Router){}
   username!: string
+  randomQuote!: string
+  randomImage!: string
   blogContent!: BlogContent[]
   imageUrl = '/assets/images/blog/blog6.png'
-  randomImage = '/assets/images/blog/blog6.png'
-  randomQuote = 'Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives'
+  quote = 'Embrace the power of your words; with each sentence, you paint a world only you can create. Keep writing, for your stories have the potential to inspire and transform lives'
 
   ngOnInit(){
     if (!this.auth.isLogin) this.router.navigate(['/login'])

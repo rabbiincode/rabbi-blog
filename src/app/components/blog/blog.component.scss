@@ -1,3 +1,8 @@
+.blog{
+  position: relative;
+  min-height: 100vh;
+}
+
 .image{
   background: var(--bg1);
   width: 100%;
@@ -68,11 +73,8 @@
 }
 
 .more{
-  color: var(--publish);
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
-  padding: 0 1.5rem 0;
 }
 
 .buttons{
@@ -116,6 +118,14 @@
   border: 0.1px solid var(--button-border);
   border-radius: 0.5rem;
   padding: 0 0.8rem 0 0.2rem;
+}
+
+.posts{
+  color: #ec9292;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 4rem 0;
 }
 
 @media (max-width: 768px){

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Quote } from '../../components/interfaces/content';
+import { Quote } from '../../interfaces/content';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 import { HeaderComponent } from '../../components/header/header.component';

@@ -1,33 +1,47 @@
 <div class="blog">
   <blog-header></blog-header>
-  <div *ngFor="let content of preview ? previewData : readContent">
-    <div class="image">
-      <img [src]="preview ? previewImageUrl : content.bannerUrl" alt="img" class="url">
+  <div *ngIf="!fetchingData" class="animate__animated animate__fadeIn">
+    <div *ngFor="let content of preview ? previewData : readContent">
+      <div class="image">
+        <img [src]="preview ? previewImageUrl : content.bannerUrl" alt="img" class="url">
+      </div>
+      <div class="timestamp">
+        <p class="publish">Published on - <span>{{content.publishedDate}}</span><small> by {{content.author}}</small></p>
+        <p *ngIf="content.updatedDate" class="publish">updated on - <span>{{content.updatedDate}}</span></p>
+      </div>
+      <p *ngIf="preview" class="category">Post Category - {{content.category}}</p>
+      <div class="post">
+        <h1 class="title">{{content.title}}</h1>
+        <div *ngIf="preview" class="overview">{{content.overview}}</div>
+        <blog-html-to-text [htmlContent]="content.content"></blog-html-to-text>
+      </div>
     </div>
-    <div class="timestamp">
-      <p class="publish">Published on - <span>{{content.publishedDate}}</span><small> by {{content.author}}</small></p>
-      <p *ngIf="content.updatedDate" class="publish">updated on - <span>{{content.updatedDate}}</span></p>
-    </div>
-    <p *ngIf="preview" class="category">Post Category - {{content.category}}</p>
-    <div class="post">
-      <h1 class="title">{{content.title}}</h1>
-      <div *ngIf="preview" class="overview">{{content.overview}}</div>
-      <blog-html-to-text [htmlContent]="content.content"></blog-html-to-text>
-    </div>
-  </div>
 
-  <div *ngIf="!preview" class="read">
-    <p *ngIf="readMoreContent?.length !== 0" class="more">Read More <mat-icon class="arrow">expand_more</mat-icon></p>
-    <blog-blog-card [blogContent]="readMoreContent"></blog-blog-card>
-  </div>
-  <div *ngIf="preview" class="buttons">
-    <button (click)="writePost ? publishPost() : editPost()" class="publish-post" [ngClass]="!writePost ? 'edit-post' : ''">
-      <span *ngIf="!loading">{{writePost ? 'Publish Post' : 'Edit Post'}}</span>
-      <span *ngIf="loading" class="load"></span>
-    </button>
-    <button (click)="goBack()" class="back"><mat-icon class="arrow">navigate_before</mat-icon>Back</button>
-  </div>
+    <div *ngIf="!preview" class="read">
+      <!-- styles in typography/dropdown.scss -->
+      <div class="dropdown-heading">
+        <div class="dropdown-title more">Read More <mat-icon class="arrow">expand_more</mat-icon></div>
+        <div (mouseleave)="show()" class="dropdown-box">
+          <span (mouseenter)="show()" class="dropdown-category">{{category}} <mat-icon class="arrow animate__animated animate__headShake animate__infinite">expand_more</mat-icon></span>
+          <div *ngIf="showOptions" class="dropdown-content">
+            <span *ngFor="let option of categories" (click)="select(option)" [ngClass]="option == category ? 'selected' : ''" class="category-list">{{option}}</span>
+          </div>
+        </div>
+      </div>
+      <blog-blog-card *ngIf="readMoreContent?.length !== 0" [blogContent]="readMoreContent"></blog-blog-card>
+      <p *ngIf="readMoreContent?.length == 0" class="posts">Post(s) not found</p>
+    </div>
 
-  <blog-footer></blog-footer>
-  <blog-scroll-to-top></blog-scroll-to-top>
+    <div *ngIf="preview" class="buttons">
+      <button (click)="writePost ? publishPost() : editPost()" class="publish-post" [ngClass]="!writePost ? 'edit-post' : ''">
+        <span *ngIf="!loading">{{writePost ? 'Publish Post' : 'Edit Post'}}</span>
+        <span *ngIf="loading" class="load"></span>
+      </button>
+      <button (click)="goBack()" class="back"><mat-icon class="arrow">navigate_before</mat-icon>Back</button>
+    </div>
+
+    <blog-footer></blog-footer>
+    <blog-scroll-to-top></blog-scroll-to-top>
+  </div>
+  <img *ngIf="fetchingData" src="/assets/gif/loading.gif" alt="loading..." class="loader"/>
 </div>

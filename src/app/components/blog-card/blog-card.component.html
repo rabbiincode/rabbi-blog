@@ -1,9 +1,9 @@
-<div class="cards">
+<div class="cards animate__animated animate__fadeIn animate__slower">
   <div *ngIf="currentBlogContent" class="content">
     <div *ngFor="let blog of currentBlogContent" class="card">
       <div class="text">
         <div class="image">
-          <img [src]="blog.bannerUrl" alt="img" class="banner">
+          <img [src]="blog.bannerUrl" alt="img" (click)="readPost(blog.postId)" class="banner">
         </div>
         <h1 class="title">{{blog.title}}</h1>
         <div class="overview">{{blog.overview}}...</div>

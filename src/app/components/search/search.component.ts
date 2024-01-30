@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlogContent } from '../interfaces/content';
+import { BlogContent } from '../../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../header/header.component';

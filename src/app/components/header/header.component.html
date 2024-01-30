@@ -8,11 +8,11 @@
     <li [routerLink]="[admin ? '/admin' : '/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="list-item">Home</li>
     <li [routerLink]="[admin ? '/admin/all-posts' : '/user']" routerLinkActive="active" class="list-item">{{admin ? 'Posts' : 'Publish'}}</li>
     <mat-icon (click)="searchInput()" class="search">search</mat-icon>
-    <li (click)="authenticate()" class="list-item login">{{isLogin ? 'LogOut' : 'Login'}}</li>
+    <li (click)="authenticate()" class="list-item login">{{isLogin ? 'Logout' : 'Login'}}</li>
     <blog-toggle-dark-mode-button></blog-toggle-dark-mode-button>
   </ul>
-  <mat-icon *ngIf="!open" (click)="toggleSidebar()" class="icon menu">menu</mat-icon>
-  <mat-icon *ngIf="open" (click)="toggleSidebar()" class="icon close">close</mat-icon>
+  <mat-icon *ngIf="!open" (click)="toggleSidebar()" class="icon">menu</mat-icon>
+  <mat-icon *ngIf="open" (click)="toggleSidebar()" class="icon">close</mat-icon>
 </nav>
 
 <blog-sidebar *ngIf="open" (searchInput)="searchInput()" (toggleSidebar)="toggleSidebar()" class="sidebar"></blog-sidebar>

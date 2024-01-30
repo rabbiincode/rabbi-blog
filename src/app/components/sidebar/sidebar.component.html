@@ -5,7 +5,7 @@
       <li [routerLink]="[admin ? '/admin' : '/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="list-item">Home</li>
       <li [routerLink]="[admin ? '/admin/all-posts' : '/user']" routerLinkActive="active" class="list-item">{{admin ? 'Posts' : 'Publish'}}</li>
       <li (click)="search()" class="list-item">Search</li>
-      <li (click)="authenticate()" class="list-item">{{isLogin ? 'LogOut' : 'Login'}}</li>
+      <li (click)="authenticate()" class="list-item">{{isLogin ? 'Logout' : 'Login'}}</li>
     </ul>
     <span class="footer">rabbi</span>
   </div>

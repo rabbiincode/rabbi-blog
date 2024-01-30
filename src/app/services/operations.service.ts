@@ -1,6 +1,6 @@
-import { Observable, forkJoin, from, map, mergeMap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { BlogContent } from '../components/interfaces/content';
+import { BlogContent } from '../interfaces/content';
+import { Observable, forkJoin, from, map, mergeMap } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDoc, getDoc } from '@angular/fire/firestore';
 

@@ -1,19 +1,21 @@
 <div class="blog">
   <blog-header></blog-header>
-  <div class="image">
-    <img [src]="randomImage" alt="img" class="url">
-  </div>
-  <button (click)="writePost()" class="publish">Publish now</button>
-  <div class="content">
-    <h1 class="title">Welcome back, <span>{{username}}</span></h1>
-    <p class="quotes">“{{randomQuote}}”</p>
-  </div>
+  <div class="animate__animated animate__fadeIn animate__slower">
+    <div class="image">
+      <img [src]="randomImage ? randomImage : imageUrl" alt="img" class="url">
+    </div>
+    <button (click)="writePost()" class="publish">Publish now</button>
+    <div class="content">
+      <h1 class="title">Welcome back, <span>{{username}}</span></h1>
+      <p class="quotes">“{{randomQuote ? randomQuote : quote}}”</p>
+    </div>
 
-  <div class="read">
-    <p>Published Work(s) <mat-icon class="arrow">expand_more</mat-icon></p>
-    <blog-blog-card *ngIf="blogContent?.length !== 0" [blogContent]="blogContent"></blog-blog-card>
-    <span *ngIf="blogContent?.length == 0">No published post(s) yet___  <strong (click)="writePost()">Publish now</strong></span>
+    <div class="read">
+      <p>Published Work(s) <mat-icon class="arrow">expand_more</mat-icon></p>
+      <blog-blog-card *ngIf="blogContent?.length !== 0" [blogContent]="blogContent"></blog-blog-card>
+      <span *ngIf="blogContent?.length == 0">No published post(s) yet___  <strong (click)="writePost()">Publish now</strong></span>
+    </div>
+    <blog-footer></blog-footer>
+    <blog-scroll-to-top></blog-scroll-to-top>
   </div>
-  <blog-footer></blog-footer>
-  <blog-scroll-to-top></blog-scroll-to-top>
 </div>

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { BlogContent } from '../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
+import { BlogContent } from '../../interfaces/content';
+import { Categories } from '../../interfaces/categories';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 import { FooterComponent } from '../footer/footer.component';
@@ -22,7 +23,12 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 
 export class BlogComponent{
   constructor(private activatedRoute: ActivatedRoute, private alert: AlertService, private meta: MetaTagService, private operation: OperationsService, private router: Router){}
+  postId!: string
   loading = false
+  category = 'All'
+  showOptions = false
+  fetchingData = true
+  categories = Categories
   previewImageUrl!: string
   @Input() preview = false
   @Input() writePost = true
@@ -34,8 +40,10 @@ export class BlogComponent{
   @Output() reRender = new EventEmitter<boolean>()
 
   ngOnInit() {
+    this.fetchingData = true
     // Subscribe to route change event and rerender component on route change
     this.activatedRoute.queryParams.subscribe(params => {
+      this.postId = params['read']
       this.getAllPost(params['read'])
     })
 
@@ -53,24 +61,51 @@ export class BlogComponent{
   }
 
   getAllPost = (postId: string) => {
-    let readContent: BlogContent
+    let content: BlogContent
     this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
       if (data){
         const moreContent = data
         const readPost = moreContent?.filter((post) => post.postId == postId)
         this.readContent = readPost
-        readPost.map(read => readContent = read) // Get readPost category
+        readPost.map(read => content = read) // Get readPost category
+        this.category = content.category
         // Update meta tag
-        this.meta.setTitle(readContent.title)
-        this.meta.updateTag('description', readContent.overview)
+        this.meta.setTitle(content.title)
+        this.meta.updateTag('description', content.overview)
         // Filter out the current blog from read more
         const readMore = moreContent?.filter((post) => post.postId !== postId)
         // Show related category post in read more
-        const relatedPosts = readMore?.filter((post) => post.category == readContent.category)
-        // If relatedPosts <= 2 show all readPosts else show related category posts
-        this.readMoreContent = relatedPosts.length <= 2 ? readMore : relatedPosts
+        const relatedPosts = readMore?.filter((post) => post.category == content.category)
+        // If relatedPosts == 0 show all readPosts else show related category posts
+        if (relatedPosts.length == 0){
+          this.category = 'All'
+          this.readMoreContent = readMore
+        } else{
+          this.readMoreContent = relatedPosts
+        }
+      }
+      this.fetchingData = false
+    })
+  }
+
+  getCategoryPosts = (postCategory: string) => {
+    this.operation.getAllPosts().subscribe((data: BlogContent[]) => {
+      if (postCategory == 'All'){
+        // Filter out the current blog from read more
+        const readMore = data?.filter((post) => post.postId !== this.postId)
+        this.readMoreContent = readMore
+      } else{
+        const categoryPost = data?.filter((post) => postCategory == post.category)
+        const readMore = categoryPost?.filter((post) => post.postId !== this.postId)
+        this.readMoreContent = readMore
       }
     })
+  }
+
+  show = () => this.showOptions = !this.showOptions
+  select = (option: string) => {
+    this.category = option
+    this.getCategoryPosts(option)
   }
   goBack = () => this.back.emit(false)
 

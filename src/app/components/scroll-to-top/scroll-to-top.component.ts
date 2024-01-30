@@ -1,6 +1,6 @@
-import { Component, ElementRef, HostListener, Inject, Renderer2, ViewChild } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, ElementRef, HostListener, Inject, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'blog-scroll-to-top',
@@ -11,11 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 
 export class ScrollToTopComponent{
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2){}
   showScrollButton = false
   topPositionToStartShowing = 300
   @ViewChild('appRoot') blogRoot: ElementRef | undefined
-
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2){}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

@@ -17,7 +17,7 @@ export class AlertComponent{}
   template: `
     <div class="delete-card">
       <p>Are you sure you want to delete this post?</p>
-      <p>Action cannot be undone</p>
+      <p>Action cannot be undone.</p>
       <div class="delete-buttons">
         <button mat-dialog-close>Back</button>
         <button (click)="delete()">Delete</button>
@@ -40,7 +40,7 @@ export class DeleteAlert{
   standalone: true,
   template: `
     <div class="success-card">
-      <p>Operation successful</p>
+      <p>Operation successful.</p>
       <button mat-dialog-close>Close</button>
     </div>
   `,
@@ -56,7 +56,7 @@ export class SuccessAlert{
   standalone: true,
   template: `
     <div class="success-card fail-card">
-      <p>Operation could not complete</p>
+      <p>Operation could not complete.</p>
       <p>Try again...</p>
       <button mat-dialog-close>Close</button>
     </div>
