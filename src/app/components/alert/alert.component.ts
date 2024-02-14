@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AlertService } from '../../services/alert.service';
-import { MatDialogRef, MatDialogClose } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogClose, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'blog-alert',
@@ -40,7 +40,8 @@ export class DeleteAlert{
   standalone: true,
   template: `
     <div class="success-card">
-      <p>Operation successful.</p>
+      <p>{{data.title}}</p>
+      <p>{{data.message}}</p>
       <button mat-dialog-close>Close</button>
     </div>
   `,
@@ -48,7 +49,24 @@ export class DeleteAlert{
   imports: [MatDialogClose]
 })
 export class SuccessAlert{
-  constructor(public dialogRef: MatDialogRef<SuccessAlert>){}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<SuccessAlert>){}
+}
+
+@Component({
+  selector: 'blog-warn-alert',
+  standalone: true,
+  template: `
+    <div class="success-card warn-card">
+      <p>{{data.title}}</p>
+      <p>{{data.message}}</p>
+      <button mat-dialog-close>Close</button>
+    </div>
+  `,
+  styleUrl: './alert.component.scss',
+  imports: [MatDialogClose]
+})
+export class WarnAlert{
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<FailAlert>){}
 }
 
 @Component({

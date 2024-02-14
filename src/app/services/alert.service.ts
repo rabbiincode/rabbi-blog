@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OperationsService } from './operations.service';
-import { DeleteAlert, FailAlert, SuccessAlert } from '../components/alert/alert.component';
+import { DeleteAlert, FailAlert, SuccessAlert, WarnAlert } from '../components/alert/alert.component';
 
 @Injectable({
   providedIn: 'root'
@@ -9,30 +9,33 @@ import { DeleteAlert, FailAlert, SuccessAlert } from '../components/alert/alert.
 
 export class AlertService{
   constructor(private dialog: MatDialog, private operation: OperationsService){}
-  openDeleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void{
+  openDeleteDialog = () => {
     this.dialog.open(DeleteAlert, {
       width: 'fit-content',
-      height: 'fit-content',
-      enterAnimationDuration,
-      exitAnimationDuration
+      height: 'fit-content'
     })
   }
 
-  openSuccessDialog(enterAnimationDuration: string, exitAnimationDuration: string): void{
+  openSuccessDialog = (message: string, title?: string) => {
     this.dialog.open(SuccessAlert, {
       width: 'fit-content',
       height: 'fit-content',
-      enterAnimationDuration,
-      exitAnimationDuration
+      data: { title, message }
     })
   }
 
-  openFailDialog(enterAnimationDuration: string, exitAnimationDuration: string): void{
-    this.dialog.open(FailAlert, {
+  openWarnDialog = (message: string, title?: string) => {
+    this.dialog.open(WarnAlert, {
       width: 'fit-content',
       height: 'fit-content',
-      enterAnimationDuration,
-      exitAnimationDuration
+      data: { title, message }
+    })
+  }
+
+  openFailDialog = () => {
+    this.dialog.open(FailAlert, {
+      width: 'fit-content',
+      height: 'fit-content'
     })
   }
 
@@ -42,10 +45,10 @@ export class AlertService{
   deletePost = () => {
     this.operation.deletePost(this.postId).then(() => {
       // Operation Successful
-      this.openSuccessDialog('0ms', '0ms')
+      this.openSuccessDialog('Delete successful')
     }, () => {
       // Operation Failed
-      this.openFailDialog('0ms', '0ms')
+      this.openFailDialog()
     })
   }
 }

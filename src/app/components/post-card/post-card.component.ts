@@ -76,6 +76,6 @@ export class PostCardComponent{
   editPost = (postId: string) => this.router.navigate(['/editor'], { queryParams: { write: 'edit-post', post: postId } })
   deletePost = (postId: string) => {
     this.alert.getPostId(postId)
-    this.alert.openDeleteDialog('0ms', '0ms')
+    this.alert.openDeleteDialog()
   }
 }

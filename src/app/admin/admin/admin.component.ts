@@ -112,6 +112,6 @@ export class AdminComponent{
       this.failAlert()
     })
   }
-  successAlert = () => this.alert.openSuccessDialog('0ms', '0ms')
-  failAlert = () => this.alert.openFailDialog('0ms', '0ms')
+  successAlert = () => this.alert.openSuccessDialog('Operation successful.')
+  failAlert = () => this.alert.openFailDialog()
 }

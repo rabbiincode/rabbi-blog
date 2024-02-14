@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CodeInputModule } from 'angular-code-input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../../../services/auth.service';
 import { timer, take, map, Subject, Subscription } from 'rxjs';
 import { MetaTagService } from '../../../services/meta-tag.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -18,6 +19,7 @@ import { EmailValidator, PasswordMatchValidator, PasswordPatternValidator } from
 })
 
 export class ForgotPasswordComponent{
+  constructor(private auth: AuthService, private meta: MetaTagService, private formBuilder: FormBuilder){}
   reset = 1
   hide = true
   hide1 = true
@@ -29,7 +31,6 @@ export class ForgotPasswordComponent{
   recoveryForm!: FormGroup
   reset$ = new Subject<void>() // Create a Subject to signal when to reset the countdown
   countdownSubscription: Subscription | undefined
-  constructor(private meta: MetaTagService, private formBuilder: FormBuilder){}
 
   ngOnInit() {
     this.meta.updateTag('description', 'Recover Password') // Update meta tag
@@ -101,14 +102,12 @@ export class ForgotPasswordComponent{
   }
 
   sendToken = () => {
-    this.email = this.recoveryForm.value.email
-    this.setEmailAddress()
-    this.reset = 2
-    this.tokenTimer()
+    this.loading = true
+    this.auth.recoverPassword(this.recoveryForm.value.email, this.maskMail(this.recoveryForm.value.email)).finally(() => {
+      this.loading = false
+    })
   }
 
-  validateToken = (code: string) => {
-    this.reset = 3
-  }
+  validateToken = (code: string) => {}
   resetPassword = async () => {}
 }

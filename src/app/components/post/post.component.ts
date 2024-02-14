@@ -206,6 +206,6 @@ export class PostComponent{
     this.operation.updatePost(this.postId, { dislikeCount: this.dislikeCount })
     this.isLogin && this.operation.updatePost(this.postId, { disliked: this.allDisliked })
   }
-  successAlert = () => this.alert.openSuccessDialog('0ms', '0ms')
-  failAlert = () => this.alert.openFailDialog('0ms', '0ms')
+  successAlert = () => this.alert.openSuccessDialog('Operation successful.')
+  failAlert = () => this.alert.openFailDialog()
 }

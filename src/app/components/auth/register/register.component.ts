@@ -40,8 +40,8 @@ export class RegisterComponent{
 
   registerUser = async () => {
     this.loading = true
-    await this.auth.SignUp(this.registerForm.value.email, this.registerForm.value.password)
+    await this.auth.signUp(this.registerForm.value.email, this.registerForm.value.password)
     this.loading = false
   }
-  registerWithGoggle = () => this.auth.SignInWithGoggle()
+  registerWithGoggle = () => this.auth.signInWithGoggle()
 }

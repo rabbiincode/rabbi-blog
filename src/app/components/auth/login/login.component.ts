@@ -50,10 +50,10 @@ export class LoginComponent{
   loginUser = async () => {
     this.loading = true
     this.handleCookies()
-    await this.auth.SignIn(this.loginForm.value.email, this.loginForm.value.password)
+    await this.auth.signIn(this.loginForm.value.email, this.loginForm.value.password)
     this.loading = false
   }
-  loginWithGoggle = () => this.auth.SignInWithGoggle()
+  loginWithGoggle = () => this.auth.signInWithGoggle()
 
   handleCookies = () => {
     // convert loginForm values to a JSON string

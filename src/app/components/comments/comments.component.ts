@@ -45,14 +45,14 @@ export class CommentsComponent{
   postComment = () => {
     if (!this.containsLetters(this.comment)){
       this.comment = ''
-      return this.alert.openFailDialog('0', '0')
+      return this.alert.openWarnDialog('Comment invalid')
     }
     this.operation.createComment({
       comment: this.comment, commentId: '', author: this.isLogin ? this.username : 'anonymous', postId: this.postId, likedCommentCount: 0, dislikedCommentCount: 0, liked: [], disliked: []
     }).then(() => {
       this.comment = ''
     }, () => {
-      this.alert.openFailDialog('0', '0')
+      this.alert.openFailDialog()
     })
   }
 

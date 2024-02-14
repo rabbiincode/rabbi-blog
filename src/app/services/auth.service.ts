@@ -16,50 +16,56 @@ export class AuthService{
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private alert: AlertService, private router: Router){}
 
   // Sign in with email/password
-  SignIn = (email: string, password: string) => {
+  signIn = (email: string, password: string) => {
     return this.afAuth
     .signInWithEmailAndPassword(email, password)
     .then(() => {
       this.isLogin = true
       this.afAuth.authState.subscribe((user) => {
-        if (user){
+        if (user?.emailVerified){
           this.username = user.email
           this.router.navigate(['/user'])
-        }      
+        } else{
+          user?.sendEmailVerification()
+          this.warnAlert1()
+        }
       })
     })
-    .catch(() => {
-      this.failAlert()
+    .catch((error) => {
+      this.warnAlert3(error)
     })
   }
 
   // Sign up with email/password
-  SignUp = (email: string, password: string) => {
+  signUp = (email: string, password: string) => {
     return this.afAuth
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
       // Send email verification message -- implement
       this.afAuth.authState.subscribe((user) => {
         if (user){
-          this.isLogin = true
-          this.successAlert()
-          this.username = user.email
-          this.router.navigate(['/user'])
-        }      
+          user.sendEmailVerification()
+          .then(() => {
+            this.warnAlert()
+          })
+          .catch(() => {
+            this.warnAlert()
+          })
+        }
       })
     })
-    .catch(() => {
-      this.failAlert()
+    .catch((error) => {
+      this.warnAlert3(error)
     })
   }
 
   // Sign in with Google
-  SignInWithGoggle = () => {
-    return this.AuthLogin(new GoogleAuthProvider())
+  signInWithGoggle = () => {
+    return this.authLogin(new GoogleAuthProvider())
   }
 
   // Auth logic to run auth providers
-  AuthLogin = (provider: any) => {
+  authLogin = (provider: any) => {
     return this.afAuth
     .signInWithPopup(provider)
     .then(() => {
@@ -68,7 +74,7 @@ export class AuthService{
           this.isLogin = true
           this.username = user.email
           this.router.navigate(['/user'])
-        }      
+        }
       })
     })
     .catch(() => {
@@ -83,10 +89,26 @@ export class AuthService{
     return this.isLogin
   }
 
+  recoverPassword = (mail: string, maskedMail: string) => {
+    return this.afAuth
+    .sendPasswordResetEmail(mail)
+    .then(() => {
+      this.warnAlert2(maskedMail)
+      this.router.navigate(['/login'])
+
+    })
+    .catch((error) => {
+      this.warnAlert3(error)
+    })
+  }
+
   getUsername = (mail: string) => {
     const a = mail?.split('@')
     return a[0]
   }
-  successAlert = () => this.alert.openSuccessDialog('0ms', '0ms')
-  failAlert = () => this.alert.openFailDialog('0ms', '0ms')
+  warnAlert = () => this.alert.openWarnDialog('A verification link has been sent to your mail, verify to proceed...', 'Registration successful')
+  warnAlert1 = () => this.alert.openWarnDialog(`A verification link has been sent to your mail, verify to proceed...`, 'Email not verified.')
+  warnAlert2 = (mail: string) => this.alert.openWarnDialog('Click to reset your password...', `A password reset link has been sent to ${mail}.`)
+  warnAlert3 = (error: any) => this.alert.openWarnDialog(error.message.replace(/^Firebase: | \([^)]+\)/g, '')) // To get only error message string
+  failAlert = () => this.alert.openFailDialog()
 }
