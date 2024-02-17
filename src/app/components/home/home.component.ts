@@ -1,3 +1,4 @@
+import { RouterLink } from '@angular/router';
 import { PostContent } from '../../interfaces/content';
 import { MatIconModule } from '@angular/material/icon';
 import { Categories } from '../../interfaces/categories';
@@ -13,7 +14,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 @Component({
   selector: 'blog-home',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule],
+  imports: [HeaderComponent, FooterComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

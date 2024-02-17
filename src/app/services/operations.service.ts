@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable, forkJoin, mergeMap } from 'rxjs';
 import { PostContent, Comments } from '../interfaces/content';
-import { Observable, forkJoin, from, map, mergeMap } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDoc, getDoc, query, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, deleteDoc, Firestore, updateDoc, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'

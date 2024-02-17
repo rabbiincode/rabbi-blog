@@ -20,7 +20,7 @@
     </div>
   </div>
   <blog-post-card *ngIf="postContent?.length !== 0" [postContent]="postContent"></blog-post-card>
-  <p *ngIf="postContent?.length == 0" class="posts">Post(s) not found</p>
+  <p *ngIf="postContent?.length == 0" class="posts">No Post(s) yet...<span [routerLink]="'/user'" class="no-post">publish</span></p>
   <blog-footer></blog-footer>
   <blog-scroll-to-top></blog-scroll-to-top>
 </div>

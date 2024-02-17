@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { PostContent } from '../../interfaces/content';
 import { Categories } from '../../interfaces/categories';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { MetaTagService } from '../../services/meta-tag.service';
 import { CommentsComponent } from '../comments/comments.component';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PostCardComponent } from '../post-card/post-card.component';
 import { OperationsService } from '../../services/operations.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -18,7 +18,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 @Component({
   selector: 'blog-post',
   standalone: true,
-  imports: [CommentsComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule],
+  imports: [CommentsComponent, FooterComponent, HeaderComponent, HtmlToTextComponent, PostCardComponent, ScrollToTopComponent, CommonModule, MatIconModule, RouterLink],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })

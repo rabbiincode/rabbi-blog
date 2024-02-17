@@ -66,6 +66,14 @@ h1, h2, h3, h4, h5, h6{
   width: 3.5rem;
 }
 
+.no-post{
+  color: var(--publish);
+  font-size: 0.9;
+  font-weight: 500;
+  font-style: oblique;
+  cursor: pointer;
+}
+
 /* width */
 ::-webkit-scrollbar{
   width: 0.625rem;

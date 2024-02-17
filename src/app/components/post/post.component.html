@@ -40,7 +40,7 @@
         </div>
       </div>
       <blog-post-card *ngIf="readMoreContent?.length !== 0" [postContent]="readMoreContent"></blog-post-card>
-      <p *ngIf="readMoreContent?.length == 0" class="posts">Post(s) not found</p>
+      <p *ngIf="readMoreContent?.length == 0" class="posts">No Post(s) yet...<span [routerLink]="'/user'" class="no-post">publish</span></p>
     </div>
 
     <div *ngIf="preview" class="buttons">
